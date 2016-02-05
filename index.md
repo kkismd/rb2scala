@@ -19,3 +19,5 @@
     * Rubyにはない型について
 * [フレームワーク、アプリケーション](frameworks.html)
     * Ruby on Rails と Play-framework
+* [その他](tips.html)
+    * その他覚え書き
