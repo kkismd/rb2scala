@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1>オブジェクト指向</h1>
+<h2>クラス</h2>
+<h3>クラスの宣言と継承</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span> &lt; <span class="dt">Bar</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
+}</code></pre></div>
+<h3>コンストラクタ</h3>
+<p>Rubyでは<code>initialize</code>という名前のメソッドを定義する。</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> <span class="kw">def</span> initialize(bar)
+    <span class="co"># new した時点でここが実行される</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scalaにはコンストラクタを複数定義できるが、ここではデフォルトのコンストラクタについて説明する。</p>
+<p>デフォルトのコンストラクタはクラス定義のブラケット内にそのまま記述できる。<br />
+引数はクラス名の後ろのカッコ内に書く。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(bar: Int) {
+  <span class="co">// new した時点でここが実行される</span>
+}</code></pre></div>
+<h2>モジュール</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> bar
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Foo {
+  <span class="kw">def</span> bar: Unit = {
+  }
+}</code></pre></div>
+<p>barというメソッドを持つtrait Fooを定義することができる。</p>
+<h3 id="mixin">Mixin</h3>
+<p>Scalaではtraitを継承することでmixinを行う。</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Bar</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">Foo</span>
+  include <span class="dt">Bar</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Bar {
+}
+
+<span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
+}</code></pre></div>
+<p>ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。</p>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar <span class="kw">with</span> Baz <span class="kw">with</span> Hoge {
+}</code></pre></div>
+<p>TODO: <code>prepend</code>や<code>using</code>についても調べて書く</p>
+<h3>名前空間</h3>
+<p>Rubyではモジュールを名前空間として使うことができる。</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+  <span class="kw">module</span> <span class="dt">Bar</span>
+    <span class="kw">class</span> <span class="dt">Baz</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt">Baz</span>.new</code></pre></div>
+<p>Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> foo
+<span class="kw">object</span> Bar {
+  <span class="kw">class</span> Baz {
+  }
+}
+
+<span class="kw">val</span> baz = <span class="kw">new</span> foo.<span class="fu">Bar</span>.<span class="fu">Baz</span>()</code></pre></div>
+<p>TODO: <code>import</code> について書く</p>
+<h2>メソッド</h2>
+<p>キーワードは同じ <code>def</code><br />
+引数と返り値の型を指定する。</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> bar(a, b)
+    a + b
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">def</span> <span class="fu">bar</span>(a: Int, b: Int): Int = {
+    a + b
+  }
+}</code></pre></div>
+<h3>プロパティとアクセサ</h3>
+<p>デフォルトのゲッター、セッター</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="ot">attr_accessor</span> <span class="st">:bar</span>, <span class="st">:baz</span>
+  <span class="kw">def</span> initialize(bar, baz)
+    <span class="ot">@bar</span> = bar
+    <span class="ot">@baz</span> = baz
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo = <span class="dt">Foo</span>.new(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
+foo.bar  <span class="co"># =&gt; 1</span>
+foo.baz  <span class="co"># =&gt; &quot;abc&quot;</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int, <span class="kw">var</span> baz: String) {
+}
+
+<span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
+foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span>
+foo.<span class="fu">baz</span>  <span class="co">// =&gt; &quot;abc&quot;</span></code></pre></div>
+<p>セッターの実装</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="ot">attr_reader</span> <span class="st">:bar</span>
+  <span class="kw">def</span> bar=(i)
+    <span class="ot">@bar</span> = i
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo = <span class="dt">Foo</span>.new
+foo.bar = <span class="dv">1</span>
+foo.bar  <span class="co"># =&gt; 1</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">private</span> <span class="kw">var</span> _bar: Int = _
+  <span class="kw">def</span> bar = _bar
+  <span class="kw">def</span> bar_=(i: Int): Unit = <span class="kw">this</span>.<span class="fu">_bar</span> = i
+}
+
+<span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>()
+foo.<span class="fu">bar</span> = <span class="dv">1</span>
+foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span></code></pre></div>
+<p>Scalaのセッターメソッドは <code>def 変数名_=(引数): Unit = ???</code> という形で定義する。</p>
+<h3>演算子メソッド</h3>
+<p>Rubyでメソッドとして再定義可能な演算子</p>
+<pre><code>|  ^  &amp;  &lt;=&gt;  ==  ===  =~  &gt;   &gt;=  &lt;   &lt;=   &lt;&lt;  &gt;&gt;
+ +  -  *  /    %   **   ~   +@  -@  []  []=  ` ! != !~</code></pre>
+<p>Scalaで再定義できない予約語、キーワード<br />
+（<a href="http://docs.scala-lang.org/tutorials/FAQ/finding-symbols.html">FAQ How do I find what some symbol means or does?</a>より引用）<br />
+（これ以外の記号、英数字は使えるらしい）</p>
+<pre><code>// Keywords
+&lt;-  // Used on for-comprehensions, to separate pattern from generator
+=&gt;  // Used for function types, function literals and import renaming
+// Reserved
+( )        // Delimit expressions and parameters
+[ ]        // Delimit type parameters
+{ }        // Delimit blocks
+.          // Method call and path separator
+// /* */   // Comments
+#          // Used in type notations
+:          // Type ascription or context bounds
+&lt;: &gt;: &lt;%   // Upper, lower and view bounds
+&quot; &quot;&quot;&quot;      // Strings
+&#39;          // Indicate symbols and characters
+@          // Annotations and variable binding on pattern matching
+`          // Denote constant or enable arbitrary identifiers
+,          // Parameter separator
+;          // Statement separator
+_*         // vararg expansion
+_          // Many different meanings</code></pre>
+<p>どちらも記号を名前としたメソッドを定義することで演算子を定義できる。</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> +(other)
+    <span class="st">&quot;add method&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo1 = <span class="dt">Foo</span>.new
+foo2 = <span class="dt">Foo</span>.new
+foo1 + foo2  <span class="co"># &quot;add method&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">def</span> +(other: Foo): String = <span class="st">&quot;add method&quot;</span>
+}
+
+<span class="kw">val</span> foo1 = <span class="kw">new</span> Foo
+<span class="kw">val</span> foo2 = <span class="kw">new</span> Foo
+foo1 + foo2  <span class="co">// &quot;add method&quot;</span></code></pre></div>
+<h3>引数のデフォルト値</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> bar(baz = <span class="dv">1</span>)
+    baz
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo = <span class="dt">Foo</span>.new
+foo.bar()  <span class="co"># =&gt; 1</span>
+foo.bar(<span class="dv">2</span>)  <span class="co"># =&gt; 2</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">def</span> <span class="fu">bar</span>(baz: Int = <span class="dv">1</span>): Int = {
+    baz
+  }
+}
+
+<span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>()
+foo.<span class="fu">bar</span>()  <span class="co">// =&gt; 1</span>
+foo.<span class="fu">bar</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 2</span></code></pre></div>
+<h3>可変長引数</h3>
+<p>Rubyでは定義するときも呼び出すときも <code>*</code> という記号をまえにつける。</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> bar(baz, *hoge)
+    <span class="co"># 2つめ以降の引数はhogeに配列として入る</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo = <span class="dt">Foo</span>.new
+baz = <span class="dv">1</span>
+hoge = [<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>]
+foo.bar(baz, *hoge)</code></pre></div>
+<p>Scalaでは定義するときは <code>*</code>をうしろにつけ、呼び出すときは <code>:_*</code> という記号をうしろにつける。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">def</span> <span class="fu">bar</span>(baz: Int, bar: String*): Unit = {
+    <span class="co">// 2つめ以降の引数は bar にSeqとして入る</span>
+  }
+}
+
+<span class="kw">val</span> foo = <span class="kw">new</span> Foo
+<span class="kw">val</span> baz = <span class="dv">1</span>
+<span class="kw">val</span> hoge = Seq(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)
+foo.<span class="fu">bar</span>(baz, hoge:_*)</code></pre></div>
+<h3>キーワード引数</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div>
+<h3>イテレータ</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div>
+<h3>クラスメソッド</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div>
+<h3>可視性と呼び出し制限</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div>
+<p>--</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div>
+</body>
+</html>

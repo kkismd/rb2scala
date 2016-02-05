@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1>式、値</h1>
+<h2>数値</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">整数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="dv">123</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="dv">123</span>
+2147483647L</code></pre></div></td>
+<td style="text-align: left;">整数は32bit(Int),64bit(Long)の２種類がある</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">実数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="fl">123.45</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="fl">123.45</span>
+<span class="dv">123</span>.
+<span class="fl">123.</span>45d
+<span class="fl">123.</span>45f</code></pre></div></td>
+<td style="text-align: left;">実数はDoubleとFloat</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">浮動小数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="fl">1.2e-3</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="fl">1.2e-3</span></code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16進整数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="bn">0xffff</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="bn">0xffff</span></code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8進数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="bn">0377</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div></td>
+<td style="text-align: left;">ゼロから始める8進数表記はScala 2.11から非推奨</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2進整数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="bn">0b1011</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div></td>
+<td style="text-align: left;">2進数のリテラルなし</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">桁区切り文字</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="dv">1_000_000_000</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div></td>
+<td style="text-align: left;">桁区切り文字はなし</td>
+</tr>
+</tbody>
+</table>
+<h2>文字列</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ダブルクォート</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="st">&quot;this is a string expression\n&quot;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="st">&quot;this is a string expression</span><span class="ch">\n</span><span class="st">&quot;</span></code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">シングルクォート</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="st">&#39;this is a string expression&#39;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"></code></pre></div></td>
+<td style="text-align: left;">シングルクォートはChar型やシンボルを表すため文字列には使えない</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">シンボル</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="st">:aaa</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">&#39;aaa</code></pre></div></td>
+<td style="text-align: left;">'シングルクォートを単語の先頭だけにつけるとシンボルを表す式になる。
+''a'' のように１文字の両端を囲むとChar型のオブジェクトになる。'
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ヒアドキュメント</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">&lt;&lt;<span class="kw">EOF</span>
+<span class="ot">foo</span>
+<span class="ot">bar</span>
+<span class="ot">baz</span>
+<span class="kw">EOF</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="st">&quot;&quot;&quot;foo</span>
+bar
+baz
+<span class="st">&quot;&quot;&quot;</span></code></pre></div></td>
+<td style="text-align: left;">改行を含む文字列はダブルクォートを３つ重ねる(Raw String)。バックスラッシュによるエスケープが効かない。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">式埋め込み</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="st">&quot;foo </span><span class="ot">#{</span><span class="dv">1</span> + <span class="dv">2</span><span class="ot">}</span><span class="st"> baz&quot;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">s<span class="st">&quot;foo ${1 + 2} baz&quot;</span></code></pre></div></td>
+<td style="text-align: left;">ダブルクォートの前に小文字のs (interpolator) を置く</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">フォーマット</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">sprintf(<span class="st">&quot;foo %d baz&quot;</span>, <span class="dv">123</span>)
+<span class="st">&quot;foo %d baz&quot;</span> % [<span class="dv">123</span>]</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="st">&quot;foo %d baz&quot;</span><span class="fu">.format</span>(123)</code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">正規表現</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="ot">/^[abc]+/</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="st">&quot;^[abc]+&quot;</span>.<span class="fu">r</span></code></pre></div></td>
+<td style="text-align: left;">正規表現専用のリテラル表記はないが、文字列オブジェクトの .r というメソッドを呼び出す事でRegexクラスのオブジェクトを生成する</td>
+</tr>
+</tbody>
+</table>
+<h2>変数</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">変数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">a = <span class="dv">123</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">var</span> a = <span class="dv">123</span></code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">定数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">A = <span class="dv">123</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> a = <span class="dv">123</span></code></pre></div></td>
+<td style="text-align: left;">変数をvalで宣言すると再代入がコンパイルエラーになる（Rubyの定数より厳格）</td>
+</tr>
+</tbody>
+</table>
+<h2>演算子</h2>
+<p>ScalaもRubyと同じように演算子の一部がメソッドのシンタックスシュガーとして定義されている。</p>
+<p><code>1 + 2</code> は <code>1.+(2)</code> のシンタックスシュガー</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">代入</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo = bar</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo = bar</code></pre></div></td>
+<td style="text-align: left;">再代入が必要な時はvarで宣言する</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">配列参照</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">array[<span class="dv">1</span>]</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="fu">array</span>(<span class="dv">1</span>)</code></pre></div></td>
+<td style="text-align: left;">カッコによる配列参照はメソッド呼び出し .apply(n) のシンタックスシュガー</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">属性参照</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo.bar</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo.<span class="fu">bar</span></code></pre></div></td>
+<td style="text-align: left;">引数なしのメソッドをカッコ省略できる</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">自己代入</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo += <span class="dv">1</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo += <span class="dv">1</span></code></pre></div></td>
+<td style="text-align: left;">再代入があるのでvar変数として宣言が必要</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">多重代入</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo, bar, baz = <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>
+foo, bar, baz = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">(foo, bar, baz) = (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+Array(foo, bar, baz) = Array(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div></td>
+<td style="text-align: left;">多重代入はパターンマッチのシンタックスシュガー</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">範囲式</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="dv">1</span> .. <span class="dv">20</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="dv">1</span> to <span class="dv">20</span>
+<span class="fl">1.</span><span class="fu">to</span>(<span class="dv">20</span>)</code></pre></div></td>
+<td style="text-align: left;">整数クラスの .to() メソッドを使う。引数が１つしかないメソッドはドットやカッコを省略できる。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">アンド条件</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo &amp;&amp; bar
+foo <span class="kw">and</span> bar</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo &amp;&amp; bar</code></pre></div></td>
+<td style="text-align: left;">演算子 and は使えない</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">オア条件</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo || bar
+foo <span class="kw">or</span> bar</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo || bar</code></pre></div></td>
+<td style="text-align: left;">演算子 or は使えない</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">否定</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">!foo
+<span class="kw">not</span> foo</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">!foo</code></pre></div></td>
+<td style="text-align: left;">演算子notは使えない</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">３項演算子</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">obj == <span class="dv">1</span> ? foo : bar</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (obj == <span class="dv">1</span>) foo <span class="kw">else</span> bar</code></pre></div></td>
+<td style="text-align: left;">３項演算子がないのでif式を使う</td>
+</tr>
+</tbody>
+</table>
+<h2>ラムダ式</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">f = -&gt;(a,b){ a + b }
+f.(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># =&gt; 3</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">//ラムダ式の型を省略せずに書いた場合</span>
+<span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }: Int
+<span class="co">//返り値の型は推論できるが引数の型は省略できない</span>
+<span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }
+
+<span class="co">//引数を位置パラメータに置き換えた場合</span>
+<span class="kw">val</span> f = (_: Int) + (_: Int)
+
+<span class="co">//変数のほうに型を明記するとラムダ式の型は省略できる</span>
+<span class="kw">val</span> f: (Int,Int) =&gt; Int = (a,b) =&gt; { a + b }
+
+<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co">// =&gt; 3</span></code></pre></div>
+<h2>配列、ハッシュ</h2>
+<p>ArrayとHashがあれば大抵間にあうRubyに比べると、Scalaには用途別に様々なコレクションクラスがある。<br />
+データ構造によって挙動や動作効率が違ってくるので、違いをおさえて使い分けるべきとされている。<br />
+<a href="http://docs.scala-lang.org/ja/overviews/collections/overview.html">コレクションAPI</a></p>
+<p>Rubyでは配列やハッシュのインスタンスを生成するのに専用のリテラルが用意されているが、Scalaではそういうものは用意されていない。<br />
+代わりに、コンパニオンオブジェクトのapplyメソッド（とその省略形）を呼ぶ事でインスタンスを生成することができる。</p>
+<h3>配列</h3>
+<p>Rubyでの配列にあたるものは、Array, Listなどがある。</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">Array(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
+<ul>
+<li><code>Array(1,2,3)</code>は<code>Array.apply(1,2,3)</code>の省略形。</li>
+</ul>
+<p>Rubyでは一つの配列の中に数値、文字列、その他オブジェクトなど自由に混在できる。<br />
+Scalaでも <code>Array[Any]</code> という型のインスタンスを用意すれば同様の事はできるが、型安全性の観点から推奨されていない。<br />
+Rubyからの移植などやむを得ないとき以外は<code>Array[Int]</code>や<code>Array[String]</code>など型を制限して使うようにしたい。</p>
+<h3>ハッシュ</h3>
+<p>RubyでのハッシュにあたるものはMap</p>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">{<span class="st">foo: &quot;foo&quot;</span>, <span class="st">bar: &quot;bar&quot;</span>, <span class="st">baz: &quot;baz&quot;</span>}</code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">Map(&#39;foo -&gt; <span class="st">&quot;foo&quot;</span>, &#39;bar -&gt; <span class="st">&quot;bar&quot;</span>, &#39;baz -&gt; <span class="st">&quot;baz&quot;</span>)</code></pre></div>
+</body>
+</html>

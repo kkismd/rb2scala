@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1>制御構造</h1>
+<h2 id="if-then-else">if-then-else</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">if</span> a = b
+  <span class="st">&quot;equal!&quot;</span>
+<span class="kw">else</span>
+  <span class="st">&quot;not equal!&quot;</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (a == b) {
+  <span class="st">&quot;equal!&quot;</span>
+}
+<span class="kw">else</span> {
+  <span class="st">&quot;not equal!&quot;</span>
+}</code></pre></div>
+<p>Scalaでもifは式であり、値を返すことができる。<br />
+後置式はない。</p>
+<h2 id="unless">unless</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">unless</span> foo?
+  <span class="st">&quot;not foo&quot;</span>
+<span class="kw">else</span>
+  <span class="st">&quot;foo&quot;</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (!isFoo)
+  <span class="st">&quot;not foo&quot;</span>
+<span class="kw">else</span>
+  <span class="st">&quot;foo&quot;</span></code></pre></div>
+<p>Scalaにunlessはない。</p>
+<h2 id="case">case</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">case</span> hoge
+<span class="kw">when</span> <span class="dv">1</span>
+  <span class="st">&quot;one&quot;</span>
+<span class="kw">when</span> <span class="dv">2</span>, <span class="dv">3</span>
+  <span class="st">&quot;two or three&quot;</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">hoge <span class="kw">match</span> {
+  <span class="kw">case</span> <span class="dv">1</span> =&gt;
+    <span class="st">&quot;foo&quot;</span>
+  <span class="kw">case</span> <span class="dv">2</span>|<span class="dv">3</span> =&gt;
+    <span class="st">&quot;two or three&quot;</span>
+}</code></pre></div>
+<p>Rubyのcase式もScalaのmatch式もどちらも強力だがここでは最も基本的な形を挙げている。</p>
+<h2>繰り返し</h2>
+<h3 id="while">whileループ</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">while</span> <span class="dv">true</span>
+  puts(<span class="st">&quot;Hello&quot;</span>)
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">while</span> (<span class="kw">true</span>) {
+  <span class="fu">println</span>(<span class="st">&quot;Hello&quot;</span>)
+}</code></pre></div>
+<h3 id="until">untilループ</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">until</span> f.eof?
+  print f.gets
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">while</span> (!f.<span class="fu">isEof</span>) {
+  <span class="fu">println</span>(f.<span class="fu">getLine</span>)
+}</code></pre></div>
+<p>untilはない。</p>
+<h3 id="for">forループ</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">for</span> i <span class="kw">in</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+  print i * <span class="dv">2</span>, <span class="st">&quot;\n&quot;</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">for</span> (i &lt;- Seq(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) {
+  <span class="fu">println</span>(i * <span class="dv">2</span>)
+}</code></pre></div>
+<p>Scalaのfor式はもっと多機能だがここでは基本的な形を挙げている。</p>
+<h3 id="break">break</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">i = <span class="dv">0</span>
+<span class="kw">while</span> <span class="dv">true</span>
+  puts i
+  i += <span class="dv">1</span>
+  <span class="kw">if</span> i &gt; <span class="dv">10</span>
+    <span class="kw">break</span>
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">import</span> scala.<span class="fu">util</span>.<span class="fu">control</span>.<span class="fu">Breaks</span>
+<span class="kw">val</span> breaks = <span class="kw">new</span> Breaks
+<span class="kw">var</span> i = <span class="dv">0</span>
+breaks.<span class="fu">breakable</span> {
+ <span class="kw">while</span> (<span class="kw">true</span>) {
+   <span class="fu">println</span>(i)
+   i += <span class="dv">1</span>
+   <span class="kw">if</span> (i &gt; <span class="dv">10</span>) breaks.<span class="fu">break</span>()
+ }
+}</code></pre></div>
+<p>ループのブレイクが構文として用意されていないので、標準ライブラリの Breaks を使う必要がある。</p>
+<h3 id="next-redo-retry">next, redo, retry</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">lines.each <span class="kw">do</span> |line|
+  <span class="kw">next</span> <span class="kw">if</span> line.blank?
+  puts line
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">lines.<span class="fu">foreach</span> { line =&gt;
+  <span class="kw">if</span> (!line.<span class="fu">isEmpty</span>) {
+    <span class="fu">println</span>(line)
+  }
+}</code></pre></div>
+<p>next, redo, retryなどの構文はないのでifなどを使って実装する必要がある。</p>
+<h2>例外処理</h2>
+<h3>例外の送出</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">raise <span class="dt">StandardError</span>.new(<span class="st">&quot;例外が起きました&quot;</span>)</code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">throw</span> <span class="kw">new</span> RuntimeException(<span class="st">&quot;例外が起きました&quot;</span>)</code></pre></div>
+<h3>例外の捕捉</h3>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">begin</span>
+  do_something
+<span class="kw">rescue</span> <span class="dt">ZeroDivisionError</span> =&gt; e
+  recover(e)
+<span class="kw">ensure</span>
+  must_to_do
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">try</span> {
+  doSomething
+}
+<span class="kw">catch</span> {
+  <span class="kw">case</span> e: ArithmeticException =&gt;
+    <span class="fu">recover</span>(e)
+}
+<span class="kw">finally</span> {
+  mustToDo
+}</code></pre></div>
+<h2 id="return">return</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">return</span> <span class="dv">1</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">return</span> <span class="dv">1</span></code></pre></div>
+<p>returnはほぼ同じ。<br />
+関数やメソッド、ブロックの最後のretrunを省略すると、Rubyと同じように最後に評価された値を返す。</p>
+</body>
+</html>
