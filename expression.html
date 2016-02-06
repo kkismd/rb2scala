@@ -198,6 +198,20 @@ baz
 </tr>
 </tbody>
 </table>
+<h3>変数と型</h3>
+<p>Rubyとの大きな違いとして、Scalaはコンパイル時に変数や関数の型が決定される。<br />
+下記のようなケースはコンパイルエラーとなる。</p>
+<ul>
+<li>変数に対して決められた型以外の値を代入する</li>
+<li>関数に対して決められた型以外の引数を渡す</li>
+</ul>
+<p>型注釈は型推論によって省略できる場合もあるが、複雑なケースでは推論できないこともある。</p>
+<p>変数の型注釈</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> 変数名: 型名 = 値
+<span class="kw">var</span> 変数名: 型名 = 値</code></pre></div>
+<p>型推論の例</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> name = <span class="st">&quot;たろう&quot;</span></code></pre></div>
+<p>変数nameの型はStringであることが推論されている。</p>
 <h2>演算子</h2>
 <p>ScalaもRubyと同じように演算子の一部がメソッドのシンタックスシュガーとして定義されている。</p>
 <p><code>1 + 2</code> は <code>1.+(2)</code> のシンタックスシュガー</p>
@@ -279,6 +293,22 @@ foo <span class="kw">or</span> bar</code></pre></div></td>
 </tr>
 </tbody>
 </table>
+<h2>関数</h2>
+<p>Ruby</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> foo(i, j)
+  i + j
+<span class="kw">end</span></code></pre></div>
+<p>Scala</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(i: Int, j:Int): Int = {
+  i + j
+}</code></pre></div>
+<h3>関数の型推論</h3>
+<p>Intクラスの .+() メソッドはIntの値を返すことから、foo()の返り値の型が Int であることが推論できる。<br />
+そのため、返り値の型は省略できる。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(i: Int, j: Int) = {
+  i + j
+}</code></pre></div>
+<p><a href="http://docs.scala-lang.org/style/">Scala Style Guide</a>では、パブリックなメソッドは明示的に型注釈を書いておくべきとされている。</p>
 <h2>ラムダ式</h2>
 <p>Ruby</p>
 <div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">f = -&gt;(a,b){ a + b }
