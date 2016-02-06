@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -43,9 +46,6 @@ code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Ann
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1>その他おぼえがき</h1>
@@ -98,6 +98,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
+<h2 id="map-select-reject-inject">map, select, reject, inject</h2>
+<p>map</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">numbers = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]
+numbers.map <span class="kw">do</span> |num|
+  num * <span class="dv">2</span>
+<span class="kw">end</span>
+<span class="co"># =&gt; [2, 4, 6]</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> numbers = List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+numbers.<span class="fu">map</span> { num =&gt;
+  num * <span class="dv">2</span>
+}
+<span class="co">// =&gt; List(2, 4, 6)</span></code></pre></div>
+<p>select</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">numbers = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+numbers.select <span class="kw">do</span> |num|
+  num % <span class="dv">2</span> == <span class="dv">0</span>
+<span class="kw">end</span>
+<span class="co"># =&gt; [2, 4]</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> numbers = List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)
+numbers.<span class="fu">filter</span> { num =&gt;
+  num % <span class="dv">2</span> == <span class="dv">0</span>
+}
+<span class="co">// =&gt; List(2, 4)</span></code></pre></div>
+<p>reject</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">numbers = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+numbers.reject <span class="kw">do</span> |num|
+  num % <span class="dv">2</span> == <span class="dv">0</span>
+<span class="kw">end</span>
+<span class="co"># =&gt; [1, 3]</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> numbers = List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)
+numbers.<span class="fu">filterNot</span> { num =&gt;
+  num % <span class="dv">2</span> == <span class="dv">0</span>
+}
+<span class="co">// =&gt; List(1, 3)</span></code></pre></div>
+<p>inject</p>
+<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby">numbers = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]
+numbers.inject(<span class="dv">0</span>) <span class="kw">do</span> |sum, n|
+  sum + n
+<span class="kw">end</span>
+<span class="co"># =&gt; 10</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> numbers = List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)
+numbers.<span class="fu">foldLeft</span>(<span class="dv">0</span>) { (sum, n) =&gt;
+  sum + n
+}
+<span class="co">// =&gt; 10</span></code></pre></div>
 <h2 id="arrayjoin">Array#join</h2>
 <p><code>TraversableOnce#mkString</code></p>
 <pre><code>List(&quot;foo&quot;, &quot;bar&quot;, &quot;baz&quot;).mkString(&quot;,&quot;)  // =&gt; &quot;foo,bar,baz&quot;</code></pre>
