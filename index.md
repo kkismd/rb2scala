@@ -12,12 +12,7 @@
     * メソッド
     * プロパティとアクセサ
     * 可視性
-* [プロジェクト管理、コンパイル、実行](projects.html)
-    * 外部ライブラリとパッケージシステム
-    * ビルドとコンパイル
 * [型システム](types.html)
     * Rubyにはない型について
-* [フレームワーク、アプリケーション](frameworks.html)
-    * Ruby on Rails と Play-framework
 * [その他](tips.html)
     * その他覚え書き

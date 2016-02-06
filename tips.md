@@ -41,6 +41,78 @@
   - メソッド名に疑問符は使えないので `is` を前置する
 ```
 
+## map, select, reject, inject
+
+map
+
+```ruby
+numbers = [1, 2, 3]
+numbers.map do |num|
+  num * 2
+end
+# => [2, 4, 6]
+```
+
+```scala
+val numbers = List(1, 2, 3)
+numbers.map { num =>
+  num * 2
+}
+// => List(2, 4, 6)
+```
+
+select
+
+```ruby
+numbers = [1, 2, 3, 4]
+numbers.select do |num|
+  num % 2 == 0
+end
+# => [2, 4]
+```
+```scala
+val numbers = List(1, 2, 3, 4)
+numbers.filter { num =>
+  num % 2 == 0
+}
+// => List(2, 4)
+```
+
+reject
+
+```ruby
+numbers = [1, 2, 3, 4]
+numbers.reject do |num|
+  num % 2 == 0
+end
+# => [1, 3]
+```
+```scala
+val numbers = List(1, 2, 3, 4)
+numbers.filterNot { num =>
+  num % 2 == 0
+}
+// => List(1, 3)
+```
+
+inject
+
+```ruby
+numbers = [1, 2, 3, 4]
+numbers.inject(0) do |sum, n|
+  sum + n
+end
+# => 10
+```
+```scala
+val numbers = List(1, 2, 3, 4)
+numbers.foldLeft(0) { (sum, n) =>
+  sum + n
+}
+// => 10
+```
+
+
 ## Array#join
 
 `TraversableOnce#mkString`
