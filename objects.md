@@ -342,18 +342,6 @@ Scala
 ```scala
 ```
 
-
-### イテレータ
-
-Ruby
-```ruby
-```
-
-Scala
-```scala
-```
-
-
 ### クラスメソッド
 
 Ruby
@@ -365,18 +353,6 @@ Scala
 ```
 
 ### 可視性と呼び出し制限
-
-Ruby
-```ruby
-```
-
-Scala
-```scala
-```
-
-
-
---
 
 Ruby
 ```ruby
