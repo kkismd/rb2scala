@@ -1,0 +1,13 @@
+body { margin-left: 20px;}
+
+sourceCode {
+  Consolas, Menlo, 'Liberation Mono', Courier, monospace;
+}
+
+th, td {
+  border: 1px #c0c0c0 solid;
+}
+
+td { padding: 5px; }
+
+tr.odd { background-color: #fafafa; }
