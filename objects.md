@@ -336,28 +336,69 @@ foo.bar(baz, hoge:_*)
 
 Ruby
 ```ruby
+def foo(bar:, baz: 1)
+end
+
+foo("hello", 12)
+foo("hello")
 ```
 
 Scala
 ```scala
+def foo(bar: String, baz: Int = 1): Unit = {
+}
+
+foo("hello", 12)
+foo("hello")
 ```
+
+Scalaでは普通に定義したメソッドに名前付き引数を渡して呼び出すことができる。
 
 ### クラスメソッド
 
 Ruby
 ```ruby
+class Foo
+  class << self
+    def bar(baz)
+  end
+end
 ```
 
 Scala
 ```scala
+class Foo {
+}
+object Bar {
+  def bar(baz: Int): Unit = {
+  }
+}
 ```
 
 ### 可視性と呼び出し制限
 
 Ruby
 ```ruby
+class Foo
+  protected
+  def bar()
+  end
+
+  private
+  def baz()
+  end
+end
 ```
 
 Scala
 ```scala
+class Foo {
+  def private bar(): Unit = {
+  }
+  def private[this] baz(): Unit = {
+  }
+}
 ```
+
+RubyとScalaの可視性に関する機能は厳密には一致しない。
+たとえばScalaの`private`はRubyの`protected`と違ってサブクラスからはアクセスできない。
