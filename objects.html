@@ -276,14 +276,14 @@ foo.<span class="fu">bar</span>(baz, hoge:_*)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> foo(bar:, <span class="st">baz: </span><span class="dv">1</span>)
 <span class="kw">end</span>
 
-foo(<span class="st">&quot;hello&quot;</span>, <span class="dv">12</span>)
-foo(<span class="st">&quot;hello&quot;</span>)</code></pre></div>
+foo(<span class="st">bar: &quot;hello&quot;</span>, <span class="st">baz: </span><span class="dv">12</span>)
+foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div>
 <p>Scala</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(bar: String, baz: Int = <span class="dv">1</span>): Unit = {
 }
 
-<span class="fu">foo</span>(<span class="st">&quot;hello&quot;</span>, <span class="dv">12</span>)
-<span class="fu">foo</span>(<span class="st">&quot;hello&quot;</span>)</code></pre></div>
+<span class="fu">foo</span>(bar = <span class="st">&quot;hello&quot;</span>, baz = <span class="dv">12</span>)
+<span class="fu">foo</span>(bar = <span class="st">&quot;hello&quot;</span>)</code></pre></div>
 <p>Scalaでは普通に定義したメソッドに名前付き引数を渡して呼び出すことができる。</p>
 <h3>クラスメソッド</h3>
 <p>Ruby</p>
