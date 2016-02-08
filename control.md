@@ -13,10 +13,14 @@
 -
   - if-else
   - |
-    if a = b
+    if a == b
       "equal!"
     else
       "not equal!"
+    end
+
+    if a == b
+      "ok"
     end
   - |
     if (a == b) {
@@ -24,6 +28,10 @@
     }
     else {
       "not equal!"
+    }
+
+    if (a == b) {
+      "ok"
     }
   - Scalaでもifは式であり、値を返すことができる。後置式はない。
 -
@@ -34,12 +42,20 @@
     else
       "foo"
     end
+
+    unless foo?
+      "ng"
+    end
   - |
     if (!isFoo) {
       "not foo"
     }
     else {
       "foo"
+    }
+
+    if (!isFoo) {
+      "ng"
     }
   - Scalaにunlessはない。
 -
@@ -50,6 +66,8 @@
       "one"
     when 2, 3
       "two or three"
+    else
+      "other case"
     end
   - |
     hoge match {
@@ -57,6 +75,8 @@
         "foo"
       case 2|3 =>
         "two or three"
+      case _ =>
+        "other case"
     }
   - Rubyのcase式もScalaのmatch式もどちらも強力だがここでは最も基本的な形を挙げている。
 ```

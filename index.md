@@ -7,7 +7,7 @@ RubyistのためのScala早見表
 目次
 ----
 
-* [式、値](expression.html)
+* [リテラル、変数、値](expression.html)
     * リテラル、変数、定数
     * 演算子
     * 関数リテラル

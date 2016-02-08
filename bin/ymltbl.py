@@ -73,16 +73,34 @@ def rows(data):
      :param list of list of str data: table cell strings
      :rtype: list of Pandoc json objects
   """
-  return [ [ cell(col, idx) for idx, col in enumerate(cols)] for cols in data]
+  colsize = len(data[0])
+  if colsize == 4:
+    fun = cell4
+  elif colsize == 2:
+    fun = cell2
+  else:
+    fun = cellx
+
+  return [ [ fun(col, idx) for idx, col in enumerate(cols)] for cols in data]
+
 
 klassname = [None, 'ruby', 'scala', None]
-def cell(s, idx):
+def cell4(s, idx):
   #if re.search("""^[A-Za-z0-9(!'"<:]""", s):
   if klassname[idx]:
     # code block class
     return codeBlock(s, klassname[idx])
   else:
     return parse(s)
+
+def cell2(s, idx):
+  if idx == 0:
+    return codeBlock(s, 'ruby')
+  else:
+    return codeBlock(s, 'scala')
+
+def cellx(s, idx):
+  return parse(s)
 
 def codeBlock(s, klass):
     return [pandoc.CodeBlock(('', [klass], [('','')]), s)]
