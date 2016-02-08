@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,105 +47,154 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1>オブジェクト指向</h1>
 <h2>クラス</h2>
 <h3>クラスの宣言と継承</h3>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span> &lt; <span class="dt">Bar</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
-}</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span> &lt; <span class="dt">Bar</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <h3>コンストラクタ</h3>
-<p>Rubyでは<code>initialize</code>という名前のメソッドを定義する。</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<p>Rubyでは<code>initialize</code>という名前のメソッドを定義する。<br />
+Scalaにはコンストラクタを複数定義できるが、ここではデフォルトのコンストラクタについて説明する。<br />
+デフォルトのコンストラクタはクラス定義のブラケット内にそのまま記述する。<br />
+引数はクラス名の後ろのカッコ内に書く。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">def</span> <span class="kw">def</span> initialize(bar)
     <span class="co"># new した時点でここが実行される</span>
   <span class="kw">end</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scalaにはコンストラクタを複数定義できるが、ここではデフォルトのコンストラクタについて説明する。</p>
-<p>デフォルトのコンストラクタはクラス定義のブラケット内にそのまま記述できる。<br />
-引数はクラス名の後ろのカッコ内に書く。</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(bar: Int) {
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(bar: Int) {
   <span class="co">// new した時点でここが実行される</span>
-}</code></pre></div>
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <h2>モジュール</h2>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+<p>Scalaではトレイトを継承することでmixinを行う。<br />
+barというメソッドを持つトレイトFooを定義し、Bazで継承する。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
   <span class="kw">def</span> bar
   <span class="kw">end</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Foo {
-  <span class="kw">def</span> bar: Unit = {
-  }
-}</code></pre></div>
-<p>barというメソッドを持つtrait Fooを定義することができる。</p>
-<h3 id="mixin">Mixin</h3>
-<p>Scalaではtraitを継承することでmixinを行う。</p>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Bar</span>
 <span class="kw">end</span>
 
-<span class="kw">class</span> <span class="dt">Foo</span>
-  include <span class="dt">Bar</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Bar {
+<span class="kw">class</span> <span class="dt">Baz</span>
+  include <span class="dt">Foo</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Foo {
+  <span class="kw">def</span> bar: Unit = {
+  }
 }
 
-<span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
-}</code></pre></div>
+<span class="kw">class</span> Baz <span class="kw">extends</span> Foo {
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。</p>
-<p>Scala</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar <span class="kw">with</span> Baz <span class="kw">with</span> Hoge {
 }</code></pre></div>
 <p>TODO: <code>prepend</code>や<code>using</code>についても調べて書く</p>
 <h3>名前空間</h3>
-<p>Rubyではモジュールを名前空間として使うことができる。</p>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+<p>Rubyではモジュールを名前空間として使うことができる。<br />
+Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
   <span class="kw">module</span> <span class="dt">Bar</span>
     <span class="kw">class</span> <span class="dt">Baz</span>
     <span class="kw">end</span>
   <span class="kw">end</span>
 <span class="kw">end</span>
 
-baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt">Baz</span>.new</code></pre></div>
-<p>Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> foo
+baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt">Baz</span>.new</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> foo
 <span class="kw">object</span> Bar {
   <span class="kw">class</span> Baz {
   }
 }
 
-<span class="kw">val</span> baz = <span class="kw">new</span> foo.<span class="fu">Bar</span>.<span class="fu">Baz</span>()</code></pre></div>
+<span class="kw">val</span> baz = <span class="kw">new</span> foo.<span class="fu">Bar</span>.<span class="fu">Baz</span>()</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>TODO: <code>import</code> について書く</p>
 <h2>メソッド</h2>
 <p>キーワードは同じ <code>def</code><br />
 引数と返り値の型を指定する。</p>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">def</span> bar(a, b)
     a + b
   <span class="kw">end</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">def</span> <span class="fu">bar</span>(a: Int, b: Int): Int = {
     a + b
   }
-}</code></pre></div>
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <h3>プロパティとアクセサ</h3>
 <p>デフォルトのゲッター、セッター</p>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="ot">attr_accessor</span> <span class="st">:bar</span>, <span class="st">:baz</span>
   <span class="kw">def</span> initialize(bar, baz)
     <span class="ot">@bar</span> = bar
@@ -152,17 +204,27 @@ baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt"
 
 foo = <span class="dt">Foo</span>.new(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
 foo.bar  <span class="co"># =&gt; 1</span>
-foo.baz  <span class="co"># =&gt; &quot;abc&quot;</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int, <span class="kw">var</span> baz: String) {
+foo.baz  <span class="co"># =&gt; &quot;abc&quot;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int, <span class="kw">var</span> baz: String) {
 }
 
 <span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
 foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span>
-foo.<span class="fu">baz</span>  <span class="co">// =&gt; &quot;abc&quot;</span></code></pre></div>
+foo.<span class="fu">baz</span>  <span class="co">// =&gt; &quot;abc&quot;</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>セッターの実装</p>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="ot">attr_reader</span> <span class="st">:bar</span>
   <span class="kw">def</span> bar=(i)
     <span class="ot">@bar</span> = i
@@ -171,9 +233,8 @@ foo.<span class="fu">baz</span>  <span class="co">// =&gt; &quot;abc&quot;</span
 
 foo = <span class="dt">Foo</span>.new
 foo.bar = <span class="dv">1</span>
-foo.bar  <span class="co"># =&gt; 1</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+foo.bar  <span class="co"># =&gt; 1</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">private</span> <span class="kw">var</span> _bar: Int = _
   <span class="kw">def</span> bar = _bar
   <span class="kw">def</span> bar_=(i: Int): Unit = <span class="kw">this</span>.<span class="fu">_bar</span> = i
@@ -181,9 +242,41 @@ foo.bar  <span class="co"># =&gt; 1</span></code></pre></div>
 
 <span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>()
 foo.<span class="fu">bar</span> = <span class="dv">1</span>
-foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span></code></pre></div>
-<p>Scalaのセッターメソッドは <code>def 変数名_=(引数): Unit = ???</code> という形で定義する。</p>
+foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>Scalaのセッターメソッドは <code>変数名_=(引数)</code> という名前で定義する。</p>
 <h3>演算子メソッド</h3>
+<p>どちらも記号を名前としたメソッドを定義することで演算子を定義できる。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> +(other)
+    <span class="st">&quot;add method&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+foo1 = <span class="dt">Foo</span>.new
+foo2 = <span class="dt">Foo</span>.new
+foo1 + foo2  <span class="co"># &quot;add method&quot;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+  <span class="kw">def</span> +(other: Foo): String = <span class="st">&quot;add method&quot;</span>
+}
+
+<span class="kw">val</span> foo1 = <span class="kw">new</span> Foo
+<span class="kw">val</span> foo2 = <span class="kw">new</span> Foo
+foo1 + foo2  <span class="co">// &quot;add method&quot;</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>Rubyでメソッドとして再定義可能な演算子</p>
 <pre><code>|  ^  &amp;  &lt;=&gt;  ==  ===  =~  &gt;   &gt;=  &lt;   &lt;=   &lt;&lt;  &gt;&gt;
  +  -  *  /    %   **   ~   +@  -@  []  []=  ` ! != !~</code></pre>
@@ -210,26 +303,20 @@ foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span></code></pre>
 ;          // Statement separator
 _*         // vararg expansion
 _          // Many different meanings</code></pre>
-<p>どちらも記号を名前としたメソッドを定義することで演算子を定義できる。</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
-  <span class="kw">def</span> +(other)
-    <span class="st">&quot;add method&quot;</span>
-  <span class="kw">end</span>
-<span class="kw">end</span>
-
-foo1 = <span class="dt">Foo</span>.new
-foo2 = <span class="dt">Foo</span>.new
-foo1 + foo2  <span class="co"># &quot;add method&quot;</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
-  <span class="kw">def</span> +(other: Foo): String = <span class="st">&quot;add method&quot;</span>
-}
-
-<span class="kw">val</span> foo1 = <span class="kw">new</span> Foo
-<span class="kw">val</span> foo2 = <span class="kw">new</span> Foo
-foo1 + foo2  <span class="co">// &quot;add method&quot;</span></code></pre></div>
-<h3>引数のデフォルト値</h3>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<h3>メソッドの引数</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">引数のデフォルト値</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">def</span> bar(baz = <span class="dv">1</span>)
     baz
   <span class="kw">end</span>
@@ -237,9 +324,8 @@ foo1 + foo2  <span class="co">// &quot;add method&quot;</span></code></pre></div
 
 foo = <span class="dt">Foo</span>.new
 foo.bar()  <span class="co"># =&gt; 1</span>
-foo.bar(<span class="dv">2</span>)  <span class="co"># =&gt; 2</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+foo.bar(<span class="dv">2</span>)  <span class="co"># =&gt; 2</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">def</span> <span class="fu">bar</span>(baz: Int = <span class="dv">1</span>): Int = {
     baz
   }
@@ -247,10 +333,12 @@ foo.bar(<span class="dv">2</span>)  <span class="co"># =&gt; 2</span></code></pr
 
 <span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>()
 foo.<span class="fu">bar</span>()  <span class="co">// =&gt; 1</span>
-foo.<span class="fu">bar</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 2</span></code></pre></div>
-<h3>可変長引数</h3>
-<p>Rubyでは定義するときも呼び出すときも <code>*</code> という記号をまえにつける。</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+foo.<span class="fu">bar</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 2</span></code></pre></div></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">可変長引数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">def</span> bar(baz, *hoge)
     <span class="co"># 2つめ以降の引数はhogeに配列として入る</span>
   <span class="kw">end</span>
@@ -259,9 +347,8 @@ foo.<span class="fu">bar</span>(<span class="dv">2</span>)  <span class="co">// 
 foo = <span class="dt">Foo</span>.new
 baz = <span class="dv">1</span>
 hoge = [<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>]
-foo.bar(baz, *hoge)</code></pre></div>
-<p>Scalaでは定義するときは <code>*</code>をうしろにつけ、呼び出すときは <code>:_*</code> という記号をうしろにつける。</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+foo.bar(baz, *hoge)</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">def</span> <span class="fu">bar</span>(baz: Int, bar: String*): Unit = {
     <span class="co">// 2つめ以降の引数は bar にSeqとして入る</span>
   }
@@ -270,39 +357,63 @@ foo.bar(baz, *hoge)</code></pre></div>
 <span class="kw">val</span> foo = <span class="kw">new</span> Foo
 <span class="kw">val</span> baz = <span class="dv">1</span>
 <span class="kw">val</span> hoge = Seq(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)
-foo.<span class="fu">bar</span>(baz, hoge:_*)</code></pre></div>
-<h3>キーワード引数</h3>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> foo(bar:, <span class="st">baz: </span><span class="dv">1</span>)
+foo.<span class="fu">bar</span>(baz, hoge:_*)</code></pre></div></td>
+<td style="text-align: left;">Rubyでは定義するときも呼び出すときも `*` という記号を前につける。
+Scalaでは定義するときは `*` を後ろにつけ、呼び出すときは `:_*` という記号を後ろにつける。
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">キーワード引数</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> foo(bar:, <span class="st">baz: </span><span class="dv">1</span>)
 <span class="kw">end</span>
 
 foo(<span class="st">bar: &quot;hello&quot;</span>, <span class="st">baz: </span><span class="dv">12</span>)
-foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(bar: String, baz: Int = <span class="dv">1</span>): Unit = {
+foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(bar: String, baz: Int = <span class="dv">1</span>): Unit = {
 }
 
 <span class="fu">foo</span>(bar = <span class="st">&quot;hello&quot;</span>, baz = <span class="dv">12</span>)
-<span class="fu">foo</span>(bar = <span class="st">&quot;hello&quot;</span>)</code></pre></div>
-<p>Scalaでは普通に定義したメソッドに名前付き引数を渡して呼び出すことができる。</p>
+<span class="fu">foo</span>(bar = <span class="st">&quot;hello&quot;</span>)</code></pre></div></td>
+<td style="text-align: left;">Scalaでは普通に定義したメソッドに名前付き引数を渡して呼び出すことができる。</td>
+</tr>
+</tbody>
+</table>
 <h3>クラスメソッド</h3>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">class</span> &lt;&lt; <span class="dv">self</span>
     <span class="kw">def</span> bar(baz)
   <span class="kw">end</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
 }
 <span class="kw">object</span> Foo {
   <span class="kw">def</span> <span class="fu">bar</span>(baz: Int): Unit = {
   }
-}</code></pre></div>
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>クラスと同名のシングルトン（コンパニオンオブジェクト）を定義し、その中にメソッドを記述する。</p>
 <h3>可視性と呼び出し制限</h3>
-<p>Ruby</p>
-<div class="sourceCode"><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="kw">protected</span>
   <span class="kw">def</span> bar()
   <span class="kw">end</span>
@@ -310,14 +421,16 @@ foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div>
   <span class="kw">private</span>
   <span class="kw">def</span> baz()
   <span class="kw">end</span>
-<span class="kw">end</span></code></pre></div>
-<p>Scala</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">def</span> <span class="kw">private</span> <span class="fu">bar</span>(): Unit = {
   }
   <span class="kw">def</span> <span class="kw">private</span>[<span class="kw">this</span>] <span class="fu">baz</span>(): Unit = {
   }
-}</code></pre></div>
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
 <p>RubyとScalaの可視性に関する機能は厳密には一致しない。<br />
 たとえばScalaの<code>private</code>はRubyの<code>protected</code>と違ってサブクラスからはアクセスできない。</p>
 </body>

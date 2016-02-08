@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,9 +47,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1>その他おぼえがき</h1>
@@ -108,14 +108,5 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <code>IterableLike#exists</code> 述語がひとつでも真ならば真を返す</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">numbers.<span class="fu">forall</span>(_.<span class="fu">isEven</span>) <span class="co">//すべてが偶数か？</span>
 numbers.<span class="fu">exists</span>(_.<span class="fu">isOdd</span>) <span class="co">// 一つでも奇数があるか？</span></code></pre></div>
-<h2>パターンマッチで(最初のうち)気付きにくいこと</h2>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">obj <span class="kw">match</span> {
-  <span class="kw">case</span> hoge =&gt;
-    ...
-    ... ここの部分は複数行書ける!
-    ...
-  <span class="kw">case</span> fuga =&gt;
-    ...
-}</code></pre></div>
 </body>
 </html>

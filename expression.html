@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,12 +47,9 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
-<h1 id="expressionvalue">式(expression)と値(value)</h1>
+<h1>リテラル、変数、式</h1>
 <h2>数値</h2>
 <table>
 <thead>
@@ -136,8 +136,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td style="text-align: left;">シンボル</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="st">:aaa</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">&#39;aaa</code></pre></div></td>
-<td style="text-align: left;">'シングルクォートを単語の先頭だけにつけるとシンボルを表す式になる。
-'a' のように１文字の両端を囲むとChar型のオブジェクトになる。'
+<td style="text-align: left;">シングルクォートを単語の先頭だけにつけるとシンボルを表す式になる。
+'a' のように１文字の両端を囲むとChar型のオブジェクトになる。
 </td>
 </tr>
 <tr class="even">
@@ -306,7 +306,7 @@ Int =&gt; Int
 <td style="text-align: left;">属性参照</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo.bar</code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo.<span class="fu">bar</span></code></pre></div></td>
-<td style="text-align: left;">引数なしのメソッドをカッコ省略できる</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">自己代入</td>
@@ -318,7 +318,7 @@ Int =&gt; Int
 <td style="text-align: left;">多重代入</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo, bar, baz = <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>
 foo, bar, baz = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">(foo, bar, baz) = (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">(foo, bar, baz) = (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)  <span class="co">// カッコで囲むとタプル</span>
 Array(foo, bar, baz) = Array(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div></td>
 <td style="text-align: left;">多重代入はパターンマッチのシンタックスシュガー</td>
 </tr>
@@ -334,21 +334,21 @@ Array(foo, bar, baz) = Array(<span class="dv">1</span>, <span class="dv">2</span
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo &amp;&amp; bar
 foo <span class="kw">and</span> bar</code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo &amp;&amp; bar</code></pre></div></td>
-<td style="text-align: left;">演算子 and は使えない</td>
+<td style="text-align: left;">演算子 and はない</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">オア条件</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">foo || bar
 foo <span class="kw">or</span> bar</code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">foo || bar</code></pre></div></td>
-<td style="text-align: left;">演算子 or は使えない</td>
+<td style="text-align: left;">演算子 or はない</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">否定</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">!foo
 <span class="kw">not</span> foo</code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">!foo</code></pre></div></td>
-<td style="text-align: left;">演算子notは使えない</td>
+<td style="text-align: left;">演算子 not はない</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">３項演算子</td>
@@ -392,9 +392,19 @@ List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</s
 <ul>
 <li><code>Array(1,2,3)</code>は<code>Array.apply(1,2,3)</code>の省略形。</li>
 </ul>
+<h3>型パラメータ</h3>
 <p>Rubyでは一つの配列の中に数値、文字列、その他オブジェクトなど自由に混在できる。<br />
-Scalaでも <code>Array[Any]</code> という型のインスタンスを用意すれば同様の事はできるが、型安全性の観点から推奨されていない。<br />
-Rubyからの移植などやむを得ないとき以外は<code>Array[Int]</code>や<code>Array[String]</code>など型を制限して使うようにしたい。</p>
-<p>TODO: <code>Array[Int]</code>の型パラメータについて書く</p>
+Scalaでは原則として1種類のオブジェクトだけを格納する。</p>
+<p>別の型を格納する型の表記方法は <code>外側の型[内側の型]</code> となる。<code>[]</code>の中を型パラメータという。</p>
+<ul>
+<li>「Intの配列」 <code>Array[Int]</code></li>
+<li>「文字列のリスト」 <code>List[String]</code></li>
+</ul>
+<p>Mapのキーと値のように、内側の型を複数もつ型も定義できる。また、型パラメータはネストできる。</p>
+<ul>
+<li>「文字列をキーとして整数を値とするMap」 <code>Map[String, Int]</code></li>
+<li>「シンボルをキーとして整数の配列を値とするMap」 <code>Map[Symbol, Array[Int]]</code></li>
+</ul>
+<p>すべてのクラスの基底クラスである<code>Any</code>を指定して<code>Array[Any]</code> という型のインスタンスを用意すればRubyと同様の事はできるが、型安全性の観点から推奨されていない。</p>
 </body>
 </html>

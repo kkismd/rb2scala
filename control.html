@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,9 +47,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <h1>制御構造</h1>
@@ -63,16 +63,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">if-else</td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">if</span> a = b
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">if</span> a == b
   <span class="st">&quot;equal!&quot;</span>
 <span class="kw">else</span>
   <span class="st">&quot;not equal!&quot;</span>
+<span class="kw">end</span>
+
+<span class="kw">if</span> a == b
+  <span class="st">&quot;ok&quot;</span>
 <span class="kw">end</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (a == b) {
   <span class="st">&quot;equal!&quot;</span>
 }
 <span class="kw">else</span> {
   <span class="st">&quot;not equal!&quot;</span>
+}
+
+<span class="kw">if</span> (a == b) {
+  <span class="st">&quot;ok&quot;</span>
 }</code></pre></div></td>
 <td style="text-align: left;">Scalaでもifは式であり、値を返すことができる。後置式はない。</td>
 </tr>
@@ -82,12 +90,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="st">&quot;not foo&quot;</span>
 <span class="kw">else</span>
   <span class="st">&quot;foo&quot;</span>
+<span class="kw">end</span>
+
+<span class="kw">unless</span> foo?
+  <span class="st">&quot;ng&quot;</span>
 <span class="kw">end</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (!isFoo) {
   <span class="st">&quot;not foo&quot;</span>
 }
 <span class="kw">else</span> {
   <span class="st">&quot;foo&quot;</span>
+}
+
+<span class="kw">if</span> (!isFoo) {
+  <span class="st">&quot;ng&quot;</span>
 }</code></pre></div></td>
 <td style="text-align: left;">Scalaにunlessはない。</td>
 </tr>
@@ -98,17 +114,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="st">&quot;one&quot;</span>
 <span class="kw">when</span> <span class="dv">2</span>, <span class="dv">3</span>
   <span class="st">&quot;two or three&quot;</span>
+<span class="kw">else</span>
+  <span class="st">&quot;other case&quot;</span>
 <span class="kw">end</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">hoge <span class="kw">match</span> {
   <span class="kw">case</span> <span class="dv">1</span> =&gt;
     <span class="st">&quot;foo&quot;</span>
   <span class="kw">case</span> <span class="dv">2</span>|<span class="dv">3</span> =&gt;
     <span class="st">&quot;two or three&quot;</span>
+  <span class="kw">case</span> _ =&gt;
+    <span class="st">&quot;other case&quot;</span>
 }</code></pre></div></td>
 <td style="text-align: left;">Rubyのcase式もScalaのmatch式もどちらも強力だがここでは最も基本的な形を挙げている。</td>
 </tr>
 </tbody>
 </table>
+<p>Scalaのmatch式も、case のひとつひとつに複数の式を書ける。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">obj <span class="kw">match</span> {
+  <span class="kw">case</span> hoge =&gt;
+    ...
+    ... ここの部分は複数行書ける!
+    ...
+  <span class="kw">case</span> fuga =&gt;
+    ...
+}</code></pre></div>
 <h2>繰り返し</h2>
 <table>
 <thead>
