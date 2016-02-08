@@ -219,7 +219,7 @@ def foo(i: Int, j: Int) = {
 ```
 
 [Scala Style Guide](http://docs.scala-lang.org/style/)では、パブリックなメソッドは明示的に型注釈を書いておくべきとされている。
-（可視性などメソッドの詳細については[オブジェクト志向](otjects.html)を参照）
+（可視性などメソッドの詳細については[オブジェクト志向](objects.html)を参照）
 
 ### 無名関数の型注釈
 
