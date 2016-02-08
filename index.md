@@ -25,5 +25,7 @@ RubyistのためのScala早見表
 ライセンス
 ----
 
+Copyright &copy; 2016 SHIMADA Keiki.
+
 ![クリエイティブ・コモンズ・ライセンス](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
 この文書は [クリエイティブ・コモンズ BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja) ライセンスの下に提供されています。
