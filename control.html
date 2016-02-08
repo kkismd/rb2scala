@@ -210,7 +210,7 @@ breaks.<span class="fu">breakable</span> {
 </tr>
 <tr class="even">
 <td style="text-align: left;">map</td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>].numbers.map <span class="kw">do</span> |num|
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>].map <span class="kw">do</span> |num|
   num * <span class="dv">2</span>
 <span class="kw">end</span>
 <span class="co"># =&gt; [2, 4, 6]</span></code></pre></div></td>
@@ -255,6 +255,14 @@ breaks.<span class="fu">breakable</span> {
 }
 <span class="co">// =&gt; 10</span></code></pre></div></td>
 <td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">to_proc(&amp;)を使った省略記法</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>].map(&amp;<span class="st">:to_s</span>)
+<span class="co"># =&gt; [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala">List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>).<span class="fu">map</span>(_.<span class="fu">toString</span>)
+<span class="co">// =&gt; List[String] = List(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;)</span></code></pre></div></td>
+<td style="text-align: left;">プレースホルダ `_` を使うことで同じくらい短く書ける。</td>
 </tr>
 </tbody>
 </table>
