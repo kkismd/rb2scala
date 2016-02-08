@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -47,9 +44,12 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
-<h1>式、値</h1>
+<h1 id="expressionvalue">式(expression)と値(value)</h1>
 <h2>数値</h2>
 <table>
 <thead>
@@ -200,11 +200,13 @@ baz
 </tbody>
 </table>
 <h3>変数と型</h3>
-<p>Rubyとの大きな違いとして、Scalaはコンパイル時に変数や関数の型が決定される。<br />
-下記のようなケースはコンパイルエラーとなる。</p>
+<p>Rubyとの大きな違いとして、Scalaはコンパイル時に変数やメソッド、関数の型が決定される。<br />
+下記のようなケースはコンパイルエラーとなる。<br />
+（メソッドと関数は異なるものだが、以下では明確な区別が必要なとき以外は広い意味で「関数」として総称する）</p>
 <ul>
 <li>変数に対して決められた型以外の値を代入する</li>
 <li>関数に対して決められた型以外の引数を渡す</li>
+<li>関数が決められた型以外の値を返す</li>
 </ul>
 <p>型注釈は型推論によって省略できる場合もあるが、複雑なケースでは推論できないこともある。</p>
 <p>変数の型注釈</p>
@@ -214,6 +216,7 @@ baz
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> name = <span class="st">&quot;たろう&quot;</span></code></pre></div>
 <p>変数nameの型はStringであることが推論されている。</p>
 <h2>メソッド、関数</h2>
+<p>メソッドはクラスやオブジェクトに属する。関数はクラスやオブジェクトとは独立している。</p>
 <table>
 <thead>
 <tr class="header">
@@ -235,12 +238,12 @@ baz
 <td style="text-align: left;">引数と返り値の型注釈、関数本体のブラケットなどを省略せず書いた場合</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">ラムダ式</td>
+<td style="text-align: left;">無名関数</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">f = -&gt;(a,b){ a + b }
-f.(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># =&gt; 3</span></code></pre></div></td>
+f.call(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># =&gt; 3</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }: Int
-<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co">// =&gt; 3</span></code></pre></div></td>
-<td style="text-align: left;">引数と返り値の型注釈を省略せず書いた場合</td>
+f.<span class="fu">apply</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co">// =&gt; 3</span></code></pre></div></td>
+<td style="text-align: left;">applyを省略して f(1,2) と書くことができる</td>
 </tr>
 </tbody>
 </table>
@@ -248,6 +251,7 @@ f.(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># =&gt
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> メソッド名(引数名: 型名, 引数名: 型名): 返り値の型名 = {
   本体
 }</code></pre></div>
+<p>値を返す必要がない場合、<code>Unit</code>という型を記述する。</p>
 <h3>メソッドと関数の型推論</h3>
 <p>Intクラスの .+() メソッドはIntの値を返すことから、foo()の返り値の型が Int であることが推論できる。<br />
 そのため、返り値の型は省略できる。</p>
@@ -256,15 +260,15 @@ f.(<span class="dv">1</span>, <span class="dv">2</span>) <span class="co"># =&gt
   i + j
 }</code></pre></div>
 <p><a href="http://docs.scala-lang.org/style/">Scala Style Guide</a>では、パブリックなメソッドは明示的に型注釈を書いておくべきとされている。</p>
-<p>ラムダ式の型注釈</p>
+<p>無名関数の型注釈</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">//返り値の型は推論できるが引数の型は省略できない</span>
 <span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }
 
 <span class="co">//変数のほうに型を明記するとラムダ式の型は省略できる</span>
 <span class="kw">val</span> f: (Int, Int) =&gt; Int = (a,b) =&gt; { a + b }</code></pre></div>
-<h3>関数値の型の書き方</h3>
+<h3>無名関数の型の書き方</h3>
 <p>関数を変数に代入するとき、その変数は「関数」という型になる。<br />
-関数の型は <code>=&gt;</code> という記号をつかって表す</p>
+関数の型は、引数の型と返り値の型を <code>=&gt;</code> という記号でつないで表す</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// 引数のない関数の場合 (Function0)</span>
 () =&gt; Int
 
