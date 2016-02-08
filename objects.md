@@ -339,8 +339,8 @@ Ruby
 def foo(bar:, baz: 1)
 end
 
-foo("hello", 12)
-foo("hello")
+foo(bar: "hello", baz: 12)
+foo(bar: "hello")
 ```
 
 Scala
@@ -348,8 +348,8 @@ Scala
 def foo(bar: String, baz: Int = 1): Unit = {
 }
 
-foo("hello", 12)
-foo("hello")
+foo(bar = "hello", baz = 12)
+foo(bar = "hello")
 ```
 
 Scalaでは普通に定義したメソッドに名前付き引数を渡して呼び出すことができる。
