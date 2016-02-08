@@ -369,11 +369,13 @@ Scala
 ```scala
 class Foo {
 }
-object Bar {
+object Foo {
   def bar(baz: Int): Unit = {
   }
 }
 ```
+
+クラスと同名のシングルトン（コンパニオンオブジェクト）を定義し、その中にメソッドを記述する。
 
 ### 可視性と呼び出し制限
 
