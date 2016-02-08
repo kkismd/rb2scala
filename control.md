@@ -81,6 +81,19 @@
   - Rubyのcase式もScalaのmatch式もどちらも強力だがここでは最も基本的な形を挙げている。
 ```
 
+Scalaのmatch式も、case のひとつひとつに複数の式を書ける。
+
+```scala
+obj match {
+  case hoge =>
+    ...
+    ... ここの部分は複数行書ける!
+    ...
+  case fuga =>
+    ...
+}
+```
+
 繰り返し
 ----
 

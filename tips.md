@@ -61,17 +61,3 @@ ListやSeqで使えるっぽい
 numbers.forall(_.isEven) //すべてが偶数か？
 numbers.exists(_.isOdd) // 一つでも奇数があるか？
 ```
-
-
-## パターンマッチで(最初のうち)気付きにくいこと
-
-```scala
-obj match {
-  case hoge =>
-    ...
-    ... ここの部分は複数行書ける!
-    ...
-  case fuga =>
-    ...
-}
-```
