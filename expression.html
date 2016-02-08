@@ -259,16 +259,14 @@ f.<span class="fu">apply</span>(<span class="dv">1</span>, <span class="dv">2</s
 <span class="kw">def</span> <span class="fu">foo</span>(i: Int, j: Int) = {
   i + j
 }</code></pre></div>
-<p><a href="http://docs.scala-lang.org/style/">Scala Style Guide</a>では、パブリックなメソッドは明示的に型注釈を書いておくべきとされている。</p>
-<p>無名関数の型注釈</p>
+<p><a href="http://docs.scala-lang.org/style/">Scala Style Guide</a>では、パブリックなメソッドは明示的に型注釈を書いておくべきとされている。<br />
+（可視性などメソッドの詳細については<a href="otjects.html">オブジェクト志向</a>を参照）</p>
+<h3>無名関数の型注釈</h3>
+<p>メソッドと同じく型推論により型注釈を省略できる。</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">//返り値の型は推論できるが引数の型は省略できない</span>
-<span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }
-
-<span class="co">//変数のほうに型を明記するとラムダ式の型は省略できる</span>
-<span class="kw">val</span> f: (Int, Int) =&gt; Int = (a,b) =&gt; { a + b }</code></pre></div>
-<h3>無名関数の型の書き方</h3>
+<span class="kw">val</span> f = (a: Int, b: Int) =&gt; { a + b }</code></pre></div>
 <p>関数を変数に代入するとき、その変数は「関数」という型になる。<br />
-関数の型は、引数の型と返り値の型を <code>=&gt;</code> という記号でつないで表す</p>
+関数の型は、引数の型と返り値の型を <code>=&gt;</code> という記号でつないで表す。</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// 引数のない関数の場合 (Function0)</span>
 () =&gt; Int
 
@@ -277,6 +275,8 @@ Int =&gt; Int
 
 <span class="co">// 2引数関数の場合 (Function2)</span>
 (Int, Int) =&gt; Int</code></pre></div>
+<p>変数に型を記述すると、関数の側の型注釈を省略することができる。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> f: (Int, Int) =&gt; Int = (a,b) =&gt; { a + b }</code></pre></div>
 <h2>演算子</h2>
 <p>ScalaもRubyと同じように演算子の一部がメソッドのシンタックスシュガーとして定義されている。</p>
 <p><code>1 + 2</code> は <code>1.+(2)</code> のシンタックスシュガー</p>
