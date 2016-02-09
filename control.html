@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -47,6 +44,9 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1>制御構造</h1>
@@ -295,6 +295,48 @@ breaks.<span class="fu">breakable</span> {
 </tr>
 </tbody>
 </table>
+<h3>ブロックつきメソッド</h3>
+<p>作り方と使い方</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">def</span> foo(bar, &amp;block)
+  <span class="kw">yield</span> bar
+<span class="kw">end</span>
+
+foo(<span class="dv">1</span>) <span class="kw">do</span> |i|
+  puts i * <span class="dv">2</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">def</span> <span class="fu">foo</span>(bar: Int)(block: Int =&gt; Unit): Unit = {
+  <span class="fu">block</span>(bar)
+}
+
+<span class="fu">foo</span>(<span class="dv">1</span>) { i =&gt;
+  <span class="fu">println</span>(i * <span class="dv">2</span>)
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>Scalaでは制御構造に似た見た目の関数をユーザーが任意に定義できるように、二つの文法規則を持っている。</p>
+<ul>
+<li>関数の引数を複数のカッコでグループに分けることができる。</li>
+<li>関数適用のカッコ <code>()</code> はブラケット <code>{}</code> で書くこともできる。</li>
+</ul>
+<p>つまり上記の例は関数<code>foo</code>に整数と無名関数の二つの値を（引数グループを分けて）渡している。<br />
+わかりやすく分けて書くと下記のようになる。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// 一番目の引数は整数値</span>
+<span class="kw">val</span> bar = <span class="dv">1</span>
+<span class="co">// 二番目の引数は無名関数</span>
+<span class="kw">val</span> block = (i: Int) =&gt; { <span class="fu">println</span>(i * <span class="dv">2</span>) }
+
+<span class="co">// 二つの値を分けて適用する</span>
+<span class="fu">foo</span>(bar)(block)</code></pre></div>
 <h2>例外処理</h2>
 <table>
 <thead>
