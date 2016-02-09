@@ -53,6 +53,22 @@
   - 桁区切り文字はなし
 ```
 
+### Longよりも大きな整数
+
+BigIntクラスを使う
+
+```scala
+BigInt(Long.MaxValue)  // => scala.math.BigInt = 9223372036854775807
+BigInt(Long.MaxValue) + 1  // => scala.math.BigInt = 9223372036854775808
+BigInt(9223372036854775808)  // => error: integer number too large
+BigInt("9223372036854775808")  // => scala.math.BigInt = 9223372036854775808
+```
+
+Longの最大値よりも大きな数を数値リテラルとして直接記述することはできない。
+BigIntへのコンストラクタに渡す必要があるときは文字列として記述する。
+
+実数はBigDecimalクラスを使う。
+
 文字列 {#strings}
 ----
 
@@ -360,6 +376,48 @@ Rubyでは配列やハッシュのインスタンスを生成するのに専用�
 ```
 
 * `Array(1,2,3)`は`Array.apply(1,2,3)`の省略形。
+
+### Mapの読み書き
+
+ScalaのMapには immutable（不変）なものと mutable（可変）なものがある。
+両者は効率と安全性のトレードオフで使い分ける。
+一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。
+
+単に `Map`と記述した場合、不変コレクションの `scala.collection.immutable.Map` クラスを指す。
+`scala.collection.mutable.Map` を使用する場合はインポートなどが必要。
+
+```ymltbl
+-
+  - 種類
+  - Ruby
+  - Scala
+  - 備考
+-
+  - 値の格納
+  - hash["key"] = 100
+  - |
+    // immutable ... 追加or更新された新しいインスタンスを返す
+    val newMap = map.updated("key" -> 100)
+    // mutable ... レシーバのインスタンスを直接更新する
+    map("key") = 100
+  - ''
+-
+  - 値の読み出し
+  - hash["key"]  # => 100
+  - |
+    map.get("key")  // => Some(100)
+    map.get("bad key")  // => None
+    map.getOrElse("key", 0)  // => 100
+    map.getOrElse("bad key", 0) // => 0
+  - ''
+```
+
+Scalaの`Map#get`はOption型の値を返す。
+* 値があるときは Some(値)
+* 値がないときは None
+
+`Map#getOrElse`を使うとOptionを介さず値を取り出すことができる。
+キーに対応する値がないときは２番目の引数に指定したデフォルト値が返る。
 
 ### 型パラメータ
 
