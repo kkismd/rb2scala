@@ -441,45 +441,6 @@ Scalaの`Map#get`はOption型の値を返す。
 `Map#getOrElse`を使うとOptionを介さず値を取り出すことができる。
 キーに対応する値がないときは２番目の引数に指定したデフォルト値が返る。
 
-### Listの読み書き
-
-Listはimmutableな単方向リンクリストなので、新しい値は先頭に非破壊的に追加される。
-
-```scala
-val list = List(3, 2, 1)
-val newList = 4 :: list
-newList  // List(4, 3, 2, 1)
-```
-先頭要素や先頭以外の全体へのアクセスは早い
-
-```scala
-val list = List(3, 2, 1)
-list.head  // => 3
-list.tail // => List(2, 1)
-```
-
-空リストのheadにアクセスすると例外が挙がるので、空かどうか分からないときは`#headOption`メソッドを使う。
-
-```scala
-List().head  // => java.util.NoSuchElementException: head of empty list
-List().headOption // => None
-List(1).headOption  // => Some(1)
-```
-
-ランダムアクセスはO(n)の時間がかかる
-
-```scala
-val list = List(3, 2, 1)
-list(2)  // =>  1
-```
-
-要素数が少ない場合、何度も繰り返されないことがわかっている場合は、リスト同士の連結もカジュアルに行なわれる。
-非破壊的な操作なので、連結された新しいリストが生成される。
-
-```scala
-List(1, 2, 3) ++ List(4, 5, 6)  // => List(1, 2, 3, 4, 5, 6)
-```
-
 ### 型パラメータ
 
 Rubyでは一つの配列の中に数値、文字列、その他オブジェクトなど自由に混在できる。
