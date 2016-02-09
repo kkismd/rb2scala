@@ -390,3 +390,43 @@ _          // Many different meanings
 
 RubyとScalaの可視性に関する機能は厳密には一致しない。
 たとえばScalaの`private`はRubyの`protected`と違ってサブクラスからはアクセスできない。
+
+オープンクラス
+----
+
+既存のクラスにメソッドを追加する場合、`implicit class`という仕組みを使う。
+パッケージのスコープを使って、拡張の影響範囲をコントロールすることができる。
+RubyのRefinementsに相当する。
+
+```ymltbl
+-
+  - Ruby
+  - Scala
+-
+  - |
+    module CoreExtentions
+      module IntExtention
+        refine Integer do
+          def plus(other)
+            self + other
+          end
+        end
+      end
+    end
+
+    # 違うファイルから使用する
+    require 'core_extentions/int_extention'
+    using CoreExtentions::IntExtention
+    1.plus(2)  # => 3
+  - |
+    package coreExtentions
+    implicit class IntExtention(self: Int) {
+      def plus(other: Int): Int = self + other
+    }
+
+    // 違う名前空間からインポートして有効化する
+    import coreExtentions.IntExtention
+    1.plus(2)  // => 3
+```
+
+既存のメソッドを上書きして挙動を修正する「モンキーパッチ」は行うことができない。
