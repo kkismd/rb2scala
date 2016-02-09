@@ -410,11 +410,35 @@ List(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</s
 </tr>
 </tbody>
 </table>
-<ul>
-<li><code>Array(1,2,3)</code>は<code>Array.apply(1,2,3)</code>の省略形。</li>
-</ul>
+<h3 id="array">Arrayの読み書き</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+<th style="text-align: left;">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">値の格納</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">array[<span class="dv">0</span>] = <span class="dv">100</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="fu">array</span>(<span class="dv">0</span>) = <span class="dv">100</span>
+array.<span class="fu">update</span>(<span class="dv">0</span>, <span class="dv">100</span>)</code></pre></div></td>
+<td style="text-align: left;">`()=`は`update()`メソッドのシンタックスシュガー</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">値の読み出し</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">array[<span class="dv">0</span>]</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="fu">array</span>(<span class="dv">0</span>)  <span class="co">// =&gt; 100</span>
+array.<span class="fu">apply</span>(<span class="dv">0</span>)</code></pre></div></td>
+<td style="text-align: left;">`()`は`apply()`のシンタックスシュガー</td>
+</tr>
+</tbody>
+</table>
 <h3 id="map">Mapの読み書き</h3>
-<p>ScalaのMapには immutable（不変）なものと mutable（可変）なものがある。<br />
+<p>MapをはじめとしたScalaのコレクションには immutable（不変）なものと mutable（可変）なものがある。<br />
 両者は効率と安全性のトレードオフで使い分ける。<br />
 一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。</p>
 <p>単に <code>Map</code>と記述した場合、不変コレクションの <code>scala.collection.immutable.Map</code> クラスを指す。<br />
@@ -456,6 +480,22 @@ map.<span class="fu">getOrElse</span>(<span class="st">&quot;bad key&quot;</span
 </ul>
 <p><code>Map#getOrElse</code>を使うとOptionを介さず値を取り出すことができる。<br />
 キーに対応する値がないときは２番目の引数に指定したデフォルト値が返る。</p>
+<h3 id="list">Listの読み書き</h3>
+<p>Listは単方向リンクリストなので、新しい値は先頭に追加する。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> list = List(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)
+<span class="kw">val</span> newList = <span class="dv">4</span> :: list
+newList  <span class="co">// List(4, 3, 2, 1)</span></code></pre></div>
+<p>先頭要素や先頭以外の全体へのアクセスは早い</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> list = List(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)
+list.<span class="fu">head</span>  <span class="co">// =&gt; 3</span>
+list.<span class="fu">tail</span> <span class="co">// =&gt; List(2, 1)</span></code></pre></div>
+<p>空リストのheadにアクセスすると例外が挙がるので、空かどうか分からないときは<code>#headOption</code>メソッドを使う。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">List().<span class="fu">head</span>  <span class="co">// =&gt; java.util.NoSuchElementException: head of empty list</span>
+List().<span class="fu">headOption</span> <span class="co">// =&gt; None</span>
+List(<span class="dv">1</span>).<span class="fu">headOption</span>  <span class="co">// =&gt; Some(1)</span></code></pre></div>
+<p>ランダムアクセスはO(n)の時間がかかる</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> list = List(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)
+<span class="fu">list</span>(<span class="dv">2</span>)  <span class="co">// =&gt;  1</span></code></pre></div>
 <h3>型パラメータ</h3>
 <p>Rubyでは一つの配列の中に数値、文字列、その他オブジェクトなど自由に混在できる。<br />
 Scalaでは原則として1種類のオブジェクトだけを格納する。</p>
