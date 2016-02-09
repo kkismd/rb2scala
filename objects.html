@@ -49,8 +49,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <![endif]-->
 </head>
 <body>
+<nav id="TOC">
+<ul>
+<li><a>オブジェクト指向</a><ul>
+<li><a href="#classes">クラス</a></li>
+<li><a href="#methods">メソッド</a></li>
+<li><a href="#modules">モジュール</a></li>
+<li><a href="#openclass">オープンクラス</a></li>
+</ul></li>
+</ul>
+</nav>
 <h1>オブジェクト指向</h1>
-<h2>クラス</h2>
+<h2 id="classes">クラス</h2>
 <h3>クラスの宣言と継承</h3>
 <table>
 <thead>
@@ -93,72 +103,7 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
 </tr>
 </tbody>
 </table>
-<h2>モジュール</h2>
-<p>Scalaではトレイトを継承することでmixinを行う。<br />
-barというメソッドを持つトレイトFooを定義し、Bazで継承する。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Ruby</th>
-<th style="text-align: left;">Scala</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
-  <span class="kw">def</span> bar
-  <span class="kw">end</span>
-<span class="kw">end</span>
-
-<span class="kw">class</span> <span class="dt">Baz</span>
-  include <span class="dt">Foo</span>
-<span class="kw">end</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Foo {
-  <span class="kw">def</span> bar: Unit = {
-  }
-}
-
-<span class="kw">class</span> Baz <span class="kw">extends</span> Foo {
-}</code></pre></div></td>
-</tr>
-</tbody>
-</table>
-<p>ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。</p>
-<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar <span class="kw">with</span> Baz <span class="kw">with</span> Hoge {
-}</code></pre></div>
-<p>TODO: <code>prepend</code>や<code>using</code>についても調べて書く</p>
-<h3>名前空間</h3>
-<p>Rubyではモジュールを名前空間として使うことができる。<br />
-Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Ruby</th>
-<th style="text-align: left;">Scala</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
-  <span class="kw">module</span> <span class="dt">Bar</span>
-    <span class="kw">class</span> <span class="dt">Baz</span>
-    <span class="kw">end</span>
-  <span class="kw">end</span>
-<span class="kw">end</span>
-
-baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt">Baz</span>.new</code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> foo
-<span class="kw">object</span> Bar {
-  <span class="kw">class</span> Baz {
-  }
-}
-
-<span class="kw">val</span> baz = <span class="kw">new</span> foo.<span class="fu">Bar</span>.<span class="fu">Baz</span>()</code></pre></div></td>
-</tr>
-</tbody>
-</table>
-<p>TODO: <code>import</code> について書く</p>
-<h2>メソッド</h2>
+<h2 id="methods">メソッド</h2>
 <p>キーワードは同じ <code>def</code><br />
 引数と返り値の型を指定する。</p>
 <table>
@@ -433,7 +378,72 @@ foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div></td>
 </table>
 <p>RubyとScalaの可視性に関する機能は厳密には一致しない。<br />
 たとえばScalaの<code>private</code>はRubyの<code>protected</code>と違ってサブクラスからはアクセスできない。</p>
-<h2>オープンクラス</h2>
+<h2 id="modules">モジュール</h2>
+<p>Scalaではトレイトを継承することでmixinを行う。<br />
+barというメソッドを持つトレイトFooを定義し、Bazで継承する。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> bar
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">Baz</span>
+  include <span class="dt">Foo</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> Foo {
+  <span class="kw">def</span> bar: Unit = {
+  }
+}
+
+<span class="kw">class</span> Baz <span class="kw">extends</span> Foo {
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar <span class="kw">with</span> Baz <span class="kw">with</span> Hoge {
+}</code></pre></div>
+<p>TODO: <code>prepend</code>や<code>using</code>についても調べて書く</p>
+<h3>名前空間</h3>
+<p>Rubyではモジュールを名前空間として使うことができる。<br />
+Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">Foo</span>
+  <span class="kw">module</span> <span class="dt">Bar</span>
+    <span class="kw">class</span> <span class="dt">Baz</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt">Baz</span>.new</code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> foo
+<span class="kw">object</span> Bar {
+  <span class="kw">class</span> Baz {
+  }
+}
+
+<span class="kw">val</span> baz = <span class="kw">new</span> foo.<span class="fu">Bar</span>.<span class="fu">Baz</span>()</code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>TODO: <code>import</code> について書く</p>
+<h2 id="openclass">オープンクラス</h2>
 <p>既存のクラスにメソッドを追加する場合、<code>implicit class</code>という仕組みを使う。<br />
 パッケージのスコープを使って、拡張の影響範囲をコントロールすることができる。<br />
 RubyのRefinementsに相当する。</p>

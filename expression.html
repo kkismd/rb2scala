@@ -49,8 +49,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <![endif]-->
 </head>
 <body>
+<nav id="TOC">
+<ul>
+<li><a>リテラル、変数、式</a><ul>
+<li><a href="#numbers">数値</a></li>
+<li><a href="#strings">文字列</a></li>
+<li><a href="#variables">変数</a></li>
+<li><a href="#functions">メソッド、関数</a></li>
+<li><a href="#operators">演算子</a></li>
+<li><a href="#arrayhash">配列、ハッシュ</a></li>
+</ul></li>
+</ul>
+</nav>
 <h1>リテラル、変数、式</h1>
-<h2>数値</h2>
+<h2 id="numbers">数値</h2>
 <table>
 <thead>
 <tr class="header">
@@ -109,7 +121,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<h2>文字列</h2>
+<h2 id="strings">文字列</h2>
 <table>
 <thead>
 <tr class="header">
@@ -174,7 +186,7 @@ baz
 </tr>
 </tbody>
 </table>
-<h2>変数</h2>
+<h2 id="variables">変数</h2>
 <table>
 <thead>
 <tr class="header">
@@ -215,7 +227,7 @@ baz
 <p>型推論の例</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> name = <span class="st">&quot;たろう&quot;</span></code></pre></div>
 <p>変数nameの型はStringであることが推論されている。</p>
-<h2>メソッド、関数</h2>
+<h2 id="functions">メソッド、関数</h2>
 <p>メソッドはクラスやオブジェクトに属する。関数はクラスやオブジェクトとは独立している。</p>
 <table>
 <thead>
@@ -277,7 +289,7 @@ Int =&gt; Int
 (Int, Int) =&gt; Int</code></pre></div>
 <p>変数に型を記述すると、関数の側の型注釈を省略することができる。</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> f: (Int, Int) =&gt; Int = (a,b) =&gt; { a + b }</code></pre></div>
-<h2>演算子</h2>
+<h2 id="operators">演算子</h2>
 <p>ScalaもRubyと同じように演算子の一部がメソッドのシンタックスシュガーとして定義されている。</p>
 <p><code>1 + 2</code> は <code>1.+(2)</code> のシンタックスシュガー</p>
 <table>
@@ -358,7 +370,7 @@ foo <span class="kw">or</span> bar</code></pre></div></td>
 </tr>
 </tbody>
 </table>
-<h2>配列、ハッシュ</h2>
+<h2 id="arrayhash">配列、ハッシュ</h2>
 <p>ArrayとHashがあれば大抵間にあうRubyに比べると、Scalaには用途別に様々なコレクションクラスがある。<br />
 データ構造によって挙動や動作効率が違ってくるので、違いをおさえて使い分けるべきとされている。<br />
 <a href="http://docs.scala-lang.org/ja/overviews/collections/overview.html">コレクションAPI</a></p>

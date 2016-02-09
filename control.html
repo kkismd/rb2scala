@@ -49,8 +49,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <![endif]-->
 </head>
 <body>
+<nav id="TOC">
+<ul>
+<li><a>制御構造</a><ul>
+<li><a href="#branches">分岐</a></li>
+<li><a href="#loops">繰り返し</a></li>
+<li><a href="#iterater">イテレータ</a></li>
+<li><a href="#exceptions">例外処理</a></li>
+<li><a href="#callreturn">メソッド呼び出し、return</a></li>
+</ul></li>
+</ul>
+</nav>
 <h1>制御構造</h1>
-<h2>分岐</h2>
+<h2 id="branches">分岐</h2>
 <table>
 <thead>
 <tr class="header">
@@ -138,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <span class="kw">case</span> fuga =&gt;
     ...
 }</code></pre></div>
-<h2>繰り返し</h2>
+<h2 id="loops">繰り返し</h2>
 <table>
 <thead>
 <tr class="header">
@@ -216,7 +227,7 @@ breaks.<span class="fu">breakable</span> {
 </tr>
 </tbody>
 </table>
-<h2>イテレータ</h2>
+<h2 id="iterater">イテレータ</h2>
 <table>
 <thead>
 <tr class="header">
@@ -337,7 +348,7 @@ foo(<span class="dv">1</span>) <span class="kw">do</span> |i|
 
 <span class="co">// 二つの値を分けて適用する</span>
 <span class="fu">foo</span>(bar)(block)</code></pre></div>
-<h2>例外処理</h2>
+<h2 id="exceptions">例外処理</h2>
 <table>
 <thead>
 <tr class="header">
@@ -377,7 +388,7 @@ foo(<span class="dv">1</span>) <span class="kw">do</span> |i|
 </tr>
 </tbody>
 </table>
-<h2 id="return">メソッド呼び出し、return</h2>
+<h2 id="callreturn">メソッド呼び出し、return</h2>
 <table>
 <thead>
 <tr class="header">
