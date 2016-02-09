@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -47,6 +44,9 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <h1>オブジェクト指向</h1>
@@ -433,5 +433,44 @@ foo(<span class="st">bar: &quot;hello&quot;</span>)</code></pre></div></td>
 </table>
 <p>RubyとScalaの可視性に関する機能は厳密には一致しない。<br />
 たとえばScalaの<code>private</code>はRubyの<code>protected</code>と違ってサブクラスからはアクセスできない。</p>
+<h2>オープンクラス</h2>
+<p>既存のクラスにメソッドを追加する場合、<code>implicit class</code>という仕組みを使う。<br />
+パッケージのスコープを使って、拡張の影響範囲をコントロールすることができる。<br />
+RubyのRefinementsに相当する。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">module</span> <span class="dt">CoreExtentions</span>
+  <span class="kw">module</span> <span class="dt">IntExtention</span>
+    refine <span class="dt">Integer</span> <span class="kw">do</span>
+      <span class="kw">def</span> plus(other)
+        <span class="dv">self</span> + other
+      <span class="kw">end</span>
+    <span class="kw">end</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="co"># 違うファイルから使用する</span>
+require <span class="st">&#39;core_extentions/int_extention&#39;</span>
+using <span class="dt">CoreExtentions</span>::<span class="dt">IntExtention</span>
+<span class="dv">1</span>.plus(<span class="dv">2</span>)  <span class="co"># =&gt; 3</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> coreExtentions
+<span class="kw">implicit</span> <span class="kw">class</span> <span class="fu">IntExtention</span>(self: Int) {
+  <span class="kw">def</span> <span class="fu">plus</span>(other: Int): Int = self + other
+}
+
+<span class="co">// 違う名前空間からインポートして有効化する</span>
+<span class="kw">import</span> coreExtentions.<span class="fu">IntExtention</span>
+<span class="fl">1.</span><span class="fu">plus</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 3</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>既存のメソッドを上書きして挙動を修正する「モンキーパッチ」は行うことができない。</p>
 </body>
 </html>
