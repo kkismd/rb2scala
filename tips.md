@@ -1,7 +1,8 @@
 その他おぼえがき
 ====
 
-## 命名規則
+命名規則 {#naming}
+----
 
 ```ymltbl
 -
@@ -42,7 +43,8 @@
 ```
 
 
-## Array#join
+Array#join {#arrayjoin}
+----
 
 `TraversableOnce#mkString`
 
@@ -52,7 +54,8 @@ List("foo", "bar", "baz").mkString(",")  // => "foo,bar,baz"
 
 ListやSeqで使えるっぽい
 
-## Enumerable#all? Enumerable#any?
+Enumerable#all? Enumerable#any? {#allany}
+----
 
 `IterableLike#forall` すべての述語が真のとき真を返す
 `IterableLike#exists` 述語がひとつでも真ならば真を返す

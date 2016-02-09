@@ -1,7 +1,7 @@
 オブジェクト指向
 ====
 
-クラス
+クラス {#classes}
 ----
 
 ### クラスの宣言と継承
@@ -45,77 +45,7 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
     }
 ```
 
-モジュール
-----
-
-Scalaではトレイトを継承することでmixinを行う。
-barというメソッドを持つトレイトFooを定義し、Bazで継承する。
-
-```ymltbl
--
-  - Ruby
-  - Scala
--
-  - |
-    module Foo
-      def bar
-      end
-    end
-
-    class Baz
-      include Foo
-    end
-  - |
-    trait Foo {
-      def bar: Unit = {
-      }
-    }
-
-    class Baz extends Foo {
-    }
-```
-
-ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。
-
-```scala
-class Foo extends Bar with Baz with Hoge {
-}
-```
-
-TODO: `prepend`や`using`についても調べて書く
-
-### 名前空間
-
-Rubyではモジュールを名前空間として使うことができる。
-Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。
-
-```ymltbl
--
-  - Ruby
-  - Scala
--
-  - |
-    module Foo
-      module Bar
-        class Baz
-        end
-      end
-    end
-
-    baz = Foo::Bar::Baz.new
-  - |
-    package foo
-    object Bar {
-      class Baz {
-      }
-    }
-
-    val baz = new foo.Bar.Baz()
-```
-
-TODO: `import` について書く
-
-メソッド
+メソッド {#methods}
 ----
 
 キーワードは同じ `def`
@@ -391,7 +321,77 @@ _          // Many different meanings
 RubyとScalaの可視性に関する機能は厳密には一致しない。
 たとえばScalaの`private`はRubyの`protected`と違ってサブクラスからはアクセスできない。
 
-オープンクラス
+モジュール {#modules}
+----
+
+Scalaではトレイトを継承することでmixinを行う。
+barというメソッドを持つトレイトFooを定義し、Bazで継承する。
+
+```ymltbl
+-
+  - Ruby
+  - Scala
+-
+  - |
+    module Foo
+      def bar
+      end
+    end
+
+    class Baz
+      include Foo
+    end
+  - |
+    trait Foo {
+      def bar: Unit = {
+      }
+    }
+
+    class Baz extends Foo {
+    }
+```
+
+ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。
+
+```scala
+class Foo extends Bar with Baz with Hoge {
+}
+```
+
+TODO: `prepend`や`using`についても調べて書く
+
+### 名前空間
+
+Rubyではモジュールを名前空間として使うことができる。
+Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。
+
+```ymltbl
+-
+  - Ruby
+  - Scala
+-
+  - |
+    module Foo
+      module Bar
+        class Baz
+        end
+      end
+    end
+
+    baz = Foo::Bar::Baz.new
+  - |
+    package foo
+    object Bar {
+      class Baz {
+      }
+    }
+
+    val baz = new foo.Bar.Baz()
+```
+
+TODO: `import` について書く
+
+オープンクラス {#openclass}
 ----
 
 既存のクラスにメソッドを追加する場合、`implicit class`という仕組みを使う。

@@ -1,7 +1,7 @@
 制御構造
 ====
 
-分岐
+分岐 {#branches}
 ----
 
 ```ymltbl
@@ -94,7 +94,7 @@ obj match {
 }
 ```
 
-繰り返し
+繰り返し {#loops}
 ----
 
 ```ymltbl
@@ -175,7 +175,7 @@ obj match {
   - next, redo, retryなどの構文はないのでifなどを使って実装する必要がある。
 ```
 
-イテレータ
+イテレータ {#iterater}
 ----
 
 ```ymltbl
@@ -304,7 +304,7 @@ foo(bar)(block)
 
 
 
-例外処理
+例外処理 {#exceptions}
 ----
 
 ```ymltbl
@@ -342,7 +342,7 @@ foo(bar)(block)
   - ''
 ```
 
-メソッド呼び出し、return
+メソッド呼び出し、return {#callreturn}
 ----
 
 ```ymltbl
