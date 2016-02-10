@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -47,6 +44,9 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <nav id="TOC">
@@ -438,11 +438,6 @@ array.<span class="fu">apply</span>(<span class="dv">0</span>)</code></pre></div
 </tbody>
 </table>
 <h3 id="map">Mapの読み書き</h3>
-<p>MapをはじめとしたScalaのコレクションには immutable（不変）なものと mutable（可変）なものがある。<br />
-両者は効率と安全性のトレードオフで使い分ける。<br />
-一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。</p>
-<p>単に <code>Map</code>と記述した場合、不変コレクションの <code>scala.collection.immutable.Map</code> クラスを指す。<br />
-<code>scala.collection.mutable.Map</code> を使用する場合はインポートなどが必要。</p>
 <table>
 <thead>
 <tr class="header">
@@ -456,11 +451,8 @@ array.<span class="fu">apply</span>(<span class="dv">0</span>)</code></pre></div
 <tr class="odd">
 <td style="text-align: left;">値の格納</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby">hash[<span class="st">&quot;key&quot;</span>] = <span class="dv">100</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// immutable ... 追加or更新された新しいインスタンスを返す</span>
-<span class="kw">val</span> newMap = map.<span class="fu">updated</span>(<span class="st">&quot;key&quot;</span> -&gt; <span class="dv">100</span>)
-<span class="co">// mutable ... レシーバのインスタンスを直接更新する</span>
-<span class="fu">map</span>(<span class="st">&quot;key&quot;</span>) = <span class="dv">100</span></code></pre></div></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">val</span> newMap = map.<span class="fu">updated</span>(<span class="st">&quot;key&quot;</span>, <span class="dv">100</span>)</code></pre></div></td>
+<td style="text-align: left;">updated()は新しいオブジェクトを作って返す</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">値の読み出し</td>
@@ -480,6 +472,12 @@ map.<span class="fu">getOrElse</span>(<span class="st">&quot;bad key&quot;</span
 </ul>
 <p><code>Map#getOrElse</code>を使うとOptionを介さず値を取り出すことができる。<br />
 キーに対応する値がないときは２番目の引数に指定したデフォルト値が返る。</p>
+<h4>不変コレクションと可変コレクション</h4>
+<p>単に <code>Map</code>と記述した場合、不変コレクションの <code>scala.collection.immutable.Map</code> クラスを指す。<br />
+可変コレクションの <code>scala.collection.mutable.Map</code> を使用する場合はインポートなどが必要。</p>
+<p>MapをはじめとしたScalaのコレクションには immutable（不変）なものと mutable（可変）なものがある。<br />
+両者は効率と安全性のトレードオフで使い分ける。<br />
+一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。</p>
 <h3>型パラメータ</h3>
 <p>Rubyでは一つの配列の中に数値、文字列、その他オブジェクトなど自由に混在できる。<br />
 Scalaでは原則として1種類のオブジェクトだけを格納する。</p>
