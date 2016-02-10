@@ -24,7 +24,7 @@
   - インスタンス変数
   - '@name_with_atmark'
   - this.camelCase
-  - ''
+  - 'スコープ中に同名のローカル変数がない場合 this. を省略できる'
 -
   - グローバル変数
   - $name_with_doller
@@ -42,9 +42,10 @@
   - メソッド名に疑問符は使えないので `is` を前置する
 ```
 
-
-Array#join {#arrayjoin}
+いろいろなクラスのいろいろなメソッド {#etc}
 ----
+
+### Array#join {#arrayjoin}
 
 `TraversableOnce#mkString`
 
@@ -54,8 +55,7 @@ List("foo", "bar", "baz").mkString(",")  // => "foo,bar,baz"
 
 ListやSeqで使えるっぽい
 
-Enumerable#all? Enumerable#any? {#allany}
-----
+### Enumerable#all? Enumerable#any? {#allany}
 
 `IterableLike#forall` すべての述語が真のとき真を返す
 `IterableLike#exists` 述語がひとつでも真ならば真を返す

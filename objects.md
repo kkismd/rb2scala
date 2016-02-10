@@ -12,12 +12,22 @@
   - Scala
 -
   - |
+    # Barを継承する場合
     class Foo < Bar
     end
   - |
+    // Barを継承する場合
     class Foo extends Bar {
     }
-
+-
+  - |
+    # 継承しない場合
+    class Foo
+    end
+  - |
+    // 継承しない場合
+    class Foo {
+    }
 ```
 
 
@@ -81,23 +91,24 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
 -
   - |
     class Foo
-      attr_accessor :bar, :baz
-      def initialize(bar, baz)
+      attr_accessor :bar
+      def initialize(bar)
         @bar = bar
-        @baz = baz
       end
     end
 
-    foo = Foo.new(1, "abc")
+    foo = Foo.new(1)
     foo.bar  # => 1
-    foo.baz  # => "abc"
+    foo.bar = 2
+    foo.bar  # => 2
   - |
-    class Foo(var bar: Int, var baz: String) {
+    class Foo(var bar: Int) {
     }
 
     val foo = new Foo(1, "abc")
     foo.bar  // => 1
-    foo.baz  // => "abc"
+    foo.bar = 2
+    foo.bar  // => 2
 ```
 
 セッターの実装
@@ -235,6 +246,7 @@ _          // Many different meanings
     end
 
     foo = Foo.new
+    foo.bar(1, "foo", "bar")
     baz = 1
     hoge = ["foo", "bar"]
     foo.bar(baz, *hoge)
@@ -246,6 +258,7 @@ _          // Many different meanings
     }
 
     val foo = new Foo
+    foo.bar(1, "foo", "bar")
     val baz = 1
     val hoge = Seq("foo", "bar")
     foo.bar(baz, hoge:_*)
@@ -358,8 +371,6 @@ class Foo extends Bar with Baz with Hoge {
 }
 ```
 
-TODO: `prepend`や`using`についても調べて書く
-
 ### 名前空間
 
 Rubyではモジュールを名前空間として使うことができる。
@@ -429,4 +440,7 @@ RubyのRefinementsに相当する。
     1.plus(2)  // => 3
 ```
 
-既存のメソッドを上書きして挙動を修正する「モンキーパッチ」は行うことができない。
+下記のような既存のメソッドの挙動を修正する「モンキーパッチ」は行うことができない。
+* クラスを再オープンしてメソッドを上書きすること
+* alias_method_chain
+* Module#prepend
