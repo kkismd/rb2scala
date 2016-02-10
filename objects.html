@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,9 +47,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <nav id="TOC">
@@ -71,9 +71,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span> &lt; <span class="dt">Bar</span>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># Barを継承する場合</span>
+<span class="kw">class</span> <span class="dt">Foo</span> &lt; <span class="dt">Bar</span>
 <span class="kw">end</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// Barを継承する場合</span>
+<span class="kw">class</span> Foo <span class="kw">extends</span> Bar {
+}</code></pre></div></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># 継承しない場合</span>
+<span class="kw">class</span> <span class="dt">Foo</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// 継承しない場合</span>
+<span class="kw">class</span> Foo {
 }</code></pre></div></td>
 </tr>
 </tbody>
@@ -140,22 +150,23 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
-  <span class="ot">attr_accessor</span> <span class="st">:bar</span>, <span class="st">:baz</span>
-  <span class="kw">def</span> initialize(bar, baz)
+  <span class="ot">attr_accessor</span> <span class="st">:bar</span>
+  <span class="kw">def</span> initialize(bar)
     <span class="ot">@bar</span> = bar
-    <span class="ot">@baz</span> = baz
   <span class="kw">end</span>
 <span class="kw">end</span>
 
-foo = <span class="dt">Foo</span>.new(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
+foo = <span class="dt">Foo</span>.new(<span class="dv">1</span>)
 foo.bar  <span class="co"># =&gt; 1</span>
-foo.baz  <span class="co"># =&gt; &quot;abc&quot;</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int, <span class="kw">var</span> baz: String) {
+foo.bar = <span class="dv">2</span>
+foo.bar  <span class="co"># =&gt; 2</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int) {
 }
 
 <span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
 foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span>
-foo.<span class="fu">baz</span>  <span class="co">// =&gt; &quot;abc&quot;</span></code></pre></div></td>
+foo.<span class="fu">bar</span> = <span class="dv">2</span>
+foo.<span class="fu">bar</span>  <span class="co">// =&gt; 2</span></code></pre></div></td>
 </tr>
 </tbody>
 </table>
@@ -290,6 +301,7 @@ foo.<span class="fu">bar</span>(<span class="dv">2</span>)  <span class="co">// 
 <span class="kw">end</span>
 
 foo = <span class="dt">Foo</span>.new
+foo.bar(<span class="dv">1</span>, <span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)
 baz = <span class="dv">1</span>
 hoge = [<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>]
 foo.bar(baz, *hoge)</code></pre></div></td>
@@ -300,6 +312,7 @@ foo.bar(baz, *hoge)</code></pre></div></td>
 }
 
 <span class="kw">val</span> foo = <span class="kw">new</span> Foo
+foo.<span class="fu">bar</span>(<span class="dv">1</span>, <span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)
 <span class="kw">val</span> baz = <span class="dv">1</span>
 <span class="kw">val</span> hoge = Seq(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>)
 foo.<span class="fu">bar</span>(baz, hoge:_*)</code></pre></div></td>
@@ -411,7 +424,6 @@ barというメソッドを持つトレイトFooを定義し、Bazで継承す�
 <p>ひとつのクラスが複数のtraitをmixinする場合、二つ目以降は with というキーワードを使う。</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Bar <span class="kw">with</span> Baz <span class="kw">with</span> Hoge {
 }</code></pre></div>
-<p>TODO: <code>prepend</code>や<code>using</code>についても調べて書く</p>
 <h3>名前空間</h3>
 <p>Rubyではモジュールを名前空間として使うことができる。<br />
 Scalaではパッケージのほか、シングルトンオブジェクトも名前空間として使うことができる。</p>
@@ -481,6 +493,11 @@ using <span class="dt">CoreExtentions</span>::<span class="dt">IntExtention</spa
 </tr>
 </tbody>
 </table>
-<p>既存のメソッドを上書きして挙動を修正する「モンキーパッチ」は行うことができない。</p>
+<p>下記のような既存のメソッドの挙動を修正する「モンキーパッチ」は行うことができない。</p>
+<ul>
+<li>クラスを再オープンしてメソッドを上書きすること</li>
+<li>alias_method_chain</li>
+<li>Module#prepend</li>
+</ul>
 </body>
 </html>

@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,17 +47,13 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <nav id="TOC">
 <ul>
 <li><a>その他おぼえがき</a><ul>
 <li><a href="#naming">命名規則</a></li>
-<li><a href="#arrayjoin">Array#join</a></li>
-<li><a href="#allany">Enumerable#all? Enumerable#any?</a></li>
+<li><a href="#etc">いろいろなクラスのいろいろなメソッド</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -86,7 +85,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td style="text-align: left;">インスタンス変数</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="ot">@name_with_atmark</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">this</span>.<span class="fu">camelCase</span></code></pre></div></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">スコープ中に同名のローカル変数がない場合 this. を省略できる</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">グローバル変数</td>
@@ -108,11 +107,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<h2 id="arrayjoin">Array#join</h2>
+<h2 id="etc">いろいろなクラスのいろいろなメソッド</h2>
+<h3 id="arrayjoin">Array#join</h3>
 <p><code>TraversableOnce#mkString</code></p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">List(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>).<span class="fu">mkString</span>(<span class="st">&quot;,&quot;</span>)  <span class="co">// =&gt; &quot;foo,bar,baz&quot;</span></code></pre></div>
 <p>ListやSeqで使えるっぽい</p>
-<h2 id="allany">Enumerable#all? Enumerable#any?</h2>
+<h3 id="allany">Enumerable#all? Enumerable#any?</h3>
 <p><code>IterableLike#forall</code> すべての述語が真のとき真を返す<br />
 <code>IterableLike#exists</code> 述語がひとつでも真ならば真を返す</p>
 <div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala">numbers.<span class="fu">forall</span>(_.<span class="fu">isEven</span>) <span class="co">//すべてが偶数か？</span>
