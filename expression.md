@@ -401,12 +401,6 @@ Rubyでは配列やハッシュのインスタンスを生成するのに専用�
 
 ### Mapの読み書き
 
-MapをはじめとしたScalaのコレクションには immutable（不変）なものと mutable（可変）なものがある。
-両者は効率と安全性のトレードオフで使い分ける。
-一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。
-
-単に `Map`と記述した場合、不変コレクションの `scala.collection.immutable.Map` クラスを指す。
-`scala.collection.mutable.Map` を使用する場合はインポートなどが必要。
 
 ```ymltbl
 -
@@ -417,12 +411,8 @@ MapをはじめとしたScalaのコレクションには immutable（不変）�
 -
   - 値の格納
   - hash["key"] = 100
-  - |
-    // immutable ... 追加or更新された新しいインスタンスを返す
-    val newMap = map.updated("key" -> 100)
-    // mutable ... レシーバのインスタンスを直接更新する
-    map("key") = 100
-  - ''
+  - val newMap = map.updated("key", 100)
+  - updated()は新しいオブジェクトを作って返す
 -
   - 値の読み出し
   - hash["key"]  # => 100
@@ -440,6 +430,15 @@ Scalaの`Map#get`はOption型の値を返す。
 
 `Map#getOrElse`を使うとOptionを介さず値を取り出すことができる。
 キーに対応する値がないときは２番目の引数に指定したデフォルト値が返る。
+
+#### 不変コレクションと可変コレクション
+
+単に `Map`と記述した場合、不変コレクションの `scala.collection.immutable.Map` クラスを指す。
+可変コレクションの `scala.collection.mutable.Map` を使用する場合はインポートなどが必要。
+
+MapをはじめとしたScalaのコレクションには immutable（不変）なものと mutable（可変）なものがある。
+両者は効率と安全性のトレードオフで使い分ける。
+一般的にはパフォーマンスに問題のない場合は不変コレクションを使うことが推奨される。
 
 ### 型パラメータ
 
