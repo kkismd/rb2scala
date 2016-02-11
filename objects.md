@@ -444,3 +444,93 @@ RubyのRefinementsに相当する。
 * クラスを再オープンしてメソッドを上書きすること
 * alias_method_chain
 * Module#prepend
+
+ダックタイピング {#ducktyping}
+----
+
+Structural Types（構造的部分型）をつかってダックタイピングを実現することができる。
+
+```ymltbl
+-
+  - Ruby
+  - Scala
+-
+  - |
+    class Duck
+      def quack
+        puts "ガーガー"
+      end
+    end
+
+    class Cat
+      def quack
+        puts "にゃーん"
+      end
+    end
+
+    def test(ahiru)
+      ahiru.quack
+    end
+
+    duck = Duck.new
+    test(duck)  # => ガーガー
+    dakku = Cat.new
+    test(dakku)  # => にゃーん
+    car = Car.new
+
+    # アヒルのように振る舞わない例
+    class Car
+      def sound
+        puts "ブロローン"
+      end
+    end
+    test(car)  # ランタイムエラー
+    NoMethodError: undefined method `quack'' for #<Car:0x007fbc4b123c70>
+  - |
+    class Duck {
+      def quack: Unit = println("ガーガー")
+    }
+
+    class Cat {
+      def quack: Unit = println("にゃーん")
+    }
+
+    def test(ahiru: { def quack: Unit }): Unit = ahiru.quack
+
+    val duck = new Duck
+    test(duck)  // => ガーガー
+    val dakku = new Cat
+    test(dakku)  // => にゃーん
+
+    // アヒルのように振る舞わない例
+    class Car {
+      def sound: Unit = println("ブロローン")
+    }
+    val car = new Car
+    test(car) // コンパイルエラー
+    <console>:12: error: type mismatch;
+     found   : car.type (with underlying type Car)
+     required: DuckLike
+        (which expands to)  AnyRef{def quack: Unit}
+```
+
+test関数のahiru引数をつけられた型注釈 `{ def quack: Unit }` が構造的部分型で、
+「`() => Unit` という型を持つメソッド`quack`を実装したオブジェクト」
+という意味をもつ。
+これにより、quackメソッドを持たないオブジェクトをtest関数に渡すと、コンパイル時にエラーとなる。
+
+JVMの仕様上の制限から、test()関数の中で ahiru.quack を呼び出すときリフレクションが使われるため、パフォーマンスはよくないとされている。
+
+Scalaではクラスの宣言時でなくインスタンスの生成時にtraitを（静的に）ミックスインすることができるので、抽象メソッドをもつtraitをインターフェースとして宣言することで同様のことができる。
+
+```scala
+trait DuckLike {
+  def quack: Unit
+}
+def test2(ahiru: DuckLike): Unit = ahiru.quack
+
+val duck: DuckLike = new Duck() with DuckLike
+test2(duck)  // => ガーガー
+val car: DuckLike = new Car() with DuckLike  // => コンパイルエラー
+<console>:9: error: object creation impossible, since method quack in trait DuckLike of type => Unit is not defined
+```
