@@ -56,6 +56,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#methods">メソッド</a></li>
 <li><a href="#modules">モジュール</a></li>
 <li><a href="#openclass">オープンクラス</a></li>
+<li><a href="#ducktyping">ダックタイピング</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -163,7 +164,7 @@ foo.bar  <span class="co"># =&gt; 2</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> <span class="fu">Foo</span>(<span class="kw">var</span> bar: Int) {
 }
 
-<span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">1</span>, <span class="st">&quot;abc&quot;</span>)
+<span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>(<span class="dv">1</span>)
 foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span>
 foo.<span class="fu">bar</span> = <span class="dv">2</span>
 foo.<span class="fu">bar</span>  <span class="co">// =&gt; 2</span></code></pre></div></td>
@@ -183,26 +184,27 @@ foo.<span class="fu">bar</span>  <span class="co">// =&gt; 2</span></code></pre>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
   <span class="ot">attr_reader</span> <span class="st">:bar</span>
   <span class="kw">def</span> bar=(i)
-    <span class="ot">@bar</span> = i
+    <span class="ot">@bar</span> = i * <span class="dv">2</span>
   <span class="kw">end</span>
 <span class="kw">end</span>
 
 foo = <span class="dt">Foo</span>.new
 foo.bar = <span class="dv">1</span>
-foo.bar  <span class="co"># =&gt; 1</span></code></pre></div></td>
+foo.bar  <span class="co"># =&gt; 2</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo {
   <span class="kw">private</span> <span class="kw">var</span> _bar: Int = _
   <span class="kw">def</span> bar = _bar
-  <span class="kw">def</span> bar_=(i: Int): Unit = <span class="kw">this</span>.<span class="fu">_bar</span> = i
+  <span class="kw">def</span> bar_=(i: Int): Unit = <span class="kw">this</span>.<span class="fu">_bar</span> = i * <span class="dv">2</span>
 }
 
 <span class="kw">val</span> foo = <span class="kw">new</span> <span class="fu">Foo</span>()
 foo.<span class="fu">bar</span> = <span class="dv">1</span>
-foo.<span class="fu">bar</span>  <span class="co">// =&gt; 1</span></code></pre></div></td>
+foo.<span class="fu">bar</span>  <span class="co">// =&gt; 2</span></code></pre></div></td>
 </tr>
 </tbody>
 </table>
-<p>Scalaのセッターメソッドは <code>変数名_=(引数)</code> という名前で定義する。</p>
+<p>privateなフィールド <code>_bar</code> を定義し、ゲッターとセッターを別途定義した。<br />
+ゲッターメソッドは公開するフィールドの名前 <code>bar</code> で定義し、 セッターメソッドは <code>フィールド名_=(引数)</code> という名前で定義する。</p>
 <h3>演算子メソッド</h3>
 <p>どちらも記号を名前としたメソッドを定義することで演算子を定義できる。</p>
 <table>
@@ -499,5 +501,89 @@ using <span class="dt">CoreExtentions</span>::<span class="dt">IntExtention</spa
 <li>alias_method_chain</li>
 <li>Module#prepend</li>
 </ul>
+<h2 id="ducktyping">ダックタイピング</h2>
+<p>Structural Types（構造的部分型）をつかってダックタイピングを実現することができる。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Duck</span>
+  <span class="kw">def</span> quack
+    puts <span class="st">&quot;ガーガー&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">class</span> <span class="dt">Cat</span>
+  <span class="kw">def</span> quack
+    puts <span class="st">&quot;にゃーん&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="kw">def</span> test(ahiru)
+  ahiru.quack
+<span class="kw">end</span>
+
+duck = <span class="dt">Duck</span>.new
+test(duck)  <span class="co"># =&gt; ガーガー</span>
+dakku = <span class="dt">Cat</span>.new
+test(dakku)  <span class="co"># =&gt; にゃーん</span>
+car = <span class="dt">Car</span>.new
+
+<span class="co"># アヒルのように振る舞わない例</span>
+<span class="kw">class</span> <span class="dt">Car</span>
+  <span class="kw">def</span> sound
+    puts <span class="st">&quot;ブロローン&quot;</span>
+  <span class="kw">end</span>
+<span class="kw">end</span>
+test(car)  <span class="co"># ランタイムエラー</span>
+<span class="dt">NoMethodError</span>: undefined method <span class="st">`quack&#39;&#39; for #&lt;Car:0x007fbc4b123c70&gt;</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Duck {
+  <span class="kw">def</span> quack: Unit = <span class="fu">println</span>(<span class="st">&quot;ガーガー&quot;</span>)
+}
+
+<span class="kw">class</span> Cat {
+  <span class="kw">def</span> quack: Unit = <span class="fu">println</span>(<span class="st">&quot;にゃーん&quot;</span>)
+}
+
+<span class="kw">def</span> <span class="fu">test</span>(ahiru: { <span class="kw">def</span> quack: Unit }): Unit = ahiru.<span class="fu">quack</span>
+
+<span class="kw">val</span> duck = <span class="kw">new</span> Duck
+<span class="fu">test</span>(duck)  <span class="co">// =&gt; ガーガー</span>
+<span class="kw">val</span> dakku = <span class="kw">new</span> Cat
+<span class="fu">test</span>(dakku)  <span class="co">// =&gt; にゃーん</span>
+
+<span class="co">// アヒルのように振る舞わない例</span>
+<span class="kw">class</span> Car {
+  <span class="kw">def</span> sound: Unit = <span class="fu">println</span>(<span class="st">&quot;ブロローン&quot;</span>)
+}
+<span class="kw">val</span> car = <span class="kw">new</span> Car
+<span class="fu">test</span>(car) <span class="co">// コンパイルエラー</span>
+&lt;console&gt;:<span class="dv">12</span>: error: <span class="kw">type</span> mismatch;
+ found   : car.<span class="fu">type</span> (<span class="kw">with</span> underlying <span class="kw">type</span> Car)
+ required: DuckLike
+    (which expands to)  AnyRef{<span class="kw">def</span> quack: Unit}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>test関数のahiru引数をつけられた型注釈 <code>{ def quack: Unit }</code> が構造的部分型で、<br />
+「<code>() =&gt; Unit</code> という型を持つメソッド<code>quack</code>を実装したオブジェクト」<br />
+という意味をもつ。<br />
+これにより、quackメソッドを持たないオブジェクトをtest関数に渡すと、コンパイル時にエラーとなる。</p>
+<p>JVMの仕様上の制限から、test()関数の中で ahiru.quack を呼び出すときリフレクションが使われるため、パフォーマンスはよくないとされている。</p>
+<p>Scalaではクラスの宣言時でなくインスタンスの生成時にtraitを（静的に）ミックスインすることができるので、抽象メソッドをもつtraitをインターフェースとして宣言することで同様のことができる。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">trait</span> DuckLike {
+  <span class="kw">def</span> quack: Unit
+}
+<span class="kw">def</span> <span class="fu">test2</span>(ahiru: DuckLike): Unit = ahiru.<span class="fu">quack</span>
+
+<span class="kw">val</span> duck: DuckLike = <span class="kw">new</span> <span class="fu">Duck</span>() <span class="kw">with</span> DuckLike
+<span class="fu">test2</span>(duck)  <span class="co">// =&gt; ガーガー</span>
+<span class="kw">val</span> car: DuckLike = <span class="kw">new</span> <span class="fu">Car</span>() <span class="kw">with</span> DuckLike  <span class="co">// =&gt; コンパイルエラー</span>
+&lt;console&gt;:<span class="dv">9</span>: error: <span class="kw">object</span> creation impossible, since method quack in <span class="kw">trait</span> DuckLike of <span class="kw">type</span> =&gt; Unit is not defined</code></pre></div>
 </body>
 </html>
