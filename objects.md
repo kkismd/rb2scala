@@ -105,7 +105,7 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
     class Foo(var bar: Int) {
     }
 
-    val foo = new Foo(1, "abc")
+    val foo = new Foo(1)
     foo.bar  // => 1
     foo.bar = 2
     foo.bar  // => 2
@@ -122,26 +122,27 @@ Scalaにはコンストラクタを複数定義できるが、ここではデフ
     class Foo
       attr_reader :bar
       def bar=(i)
-        @bar = i
+        @bar = i * 2
       end
     end
 
     foo = Foo.new
     foo.bar = 1
-    foo.bar  # => 1
+    foo.bar  # => 2
   - |
     class Foo {
       private var _bar: Int = _
       def bar = _bar
-      def bar_=(i: Int): Unit = this._bar = i
+      def bar_=(i: Int): Unit = this._bar = i * 2
     }
 
     val foo = new Foo()
     foo.bar = 1
-    foo.bar  // => 1
+    foo.bar  // => 2
 ```
 
-Scalaのセッターメソッドは `変数名_=(引数)` という名前で定義する。
+privateなフィールド `_bar` を定義し、ゲッターとセッターを別途定義した。
+ゲッターメソッドは公開するフィールドの名前 `bar` で定義し、 セッターメソッドは `フィールド名_=(引数)` という名前で定義する。
 
 ### 演算子メソッド
 
