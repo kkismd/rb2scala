@@ -431,15 +431,26 @@ RubyのRefinementsに相当する。
     using CoreExtentions::IntExtention
     1.plus(2)  # => 3
   - |
-    package coreExtentions
-    implicit class IntExtention(self: Int) {
-      def plus(other: Int): Int = self + other
+    object CoreExtentions {
+      implicit class IntExtention(self: Int) {
+        def plus(other: Int): Int = self + other
+      }
     }
 
     // 違う名前空間からインポートして有効化する
-    import coreExtentions.IntExtention
+    import CoreExtentions.IntExtention
     1.plus(2)  // => 3
+
 ```
+
+Intに対して`.plus()`メソッドを呼ぶコードは、コンパイラによって
+```scala
+new IntExtention(1).plus(2)
+```
+という式に変換されてコンパイルされる。インスタンス生成のオーバーヘッドを避けたい場合は値クラスを併用する。
+http://docs.scala-lang.org/ja/overviews/core/value-classes.html#section-1
+
+### モンキーパッチ
 
 下記のような既存のメソッドの挙動を修正する「モンキーパッチ」は行うことができない。
 * クラスを再オープンしてメソッドを上書きすること
@@ -477,7 +488,6 @@ Structural Types（構造的部分型）をつかってダックタイピング�
     test(duck)  # => ガーガー
     dakku = Cat.new
     test(dakku)  # => にゃーん
-    car = Car.new
 
     # アヒルのように振る舞わない例
     class Car
@@ -485,6 +495,7 @@ Structural Types（構造的部分型）をつかってダックタイピング�
         puts "ブロローン"
       end
     end
+    car = Car.new
     test(car)  # ランタイムエラー
     NoMethodError: undefined method `quack'' for #<Car:0x007fbc4b123c70>
   - |
@@ -532,6 +543,10 @@ def test2(ahiru: DuckLike): Unit = ahiru.quack
 
 val duck: DuckLike = new Duck() with DuckLike
 test2(duck)  // => ガーガー
+
+val dakku: DuckLike = new Cat() with DuckLike
+test2(dakku)  // => にゃーん
+
 val car: DuckLike = new Car() with DuckLike  // => コンパイルエラー
 <console>:9: error: object creation impossible, since method quack in trait DuckLike of type => Unit is not defined
 ```
