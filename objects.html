@@ -459,7 +459,7 @@ baz = <span class="dt">Foo</span>::<span class="dt">Bar</span>::<span class="dt"
 <p>TODO: <code>import</code> について書く</p>
 <h2 id="openclass">オープンクラス</h2>
 <p>既存のクラスにメソッドを追加する場合、<code>implicit class</code>という仕組みを使う。<br />
-パッケージのスコープを使って、拡張の影響範囲をコントロールすることができる。<br />
+オブジェクトのスコープを使って、拡張の影響範囲をコントロールすることができる。<br />
 RubyのRefinementsに相当する。</p>
 <table>
 <thead>
@@ -490,7 +490,7 @@ using <span class="dt">CoreExtentions</span>::<span class="dt">IntExtention</spa
   }
 }
 
-<span class="co">// 違う名前空間からインポートして有効化する</span>
+<span class="co">// 違う名前空間からインポートして使用する</span>
 <span class="kw">import</span> CoreExtentions.<span class="fu">IntExtention</span>
 <span class="fl">1.</span><span class="fu">plus</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 3</span></code></pre></div></td>
 </tr>
