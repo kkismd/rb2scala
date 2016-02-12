@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -47,6 +44,9 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <nav id="TOC">
@@ -484,17 +484,23 @@ RubyのRefinementsに相当する。</p>
 require <span class="st">&#39;core_extentions/int_extention&#39;</span>
 using <span class="dt">CoreExtentions</span>::<span class="dt">IntExtention</span>
 <span class="dv">1</span>.plus(<span class="dv">2</span>)  <span class="co"># =&gt; 3</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">package</span> coreExtentions
-<span class="kw">implicit</span> <span class="kw">class</span> <span class="fu">IntExtention</span>(self: Int) {
-  <span class="kw">def</span> <span class="fu">plus</span>(other: Int): Int = self + other
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">object</span> CoreExtentions {
+  <span class="kw">implicit</span> <span class="kw">class</span> <span class="fu">IntExtention</span>(self: Int) {
+    <span class="kw">def</span> <span class="fu">plus</span>(other: Int): Int = self + other
+  }
 }
 
 <span class="co">// 違う名前空間からインポートして有効化する</span>
-<span class="kw">import</span> coreExtentions.<span class="fu">IntExtention</span>
+<span class="kw">import</span> CoreExtentions.<span class="fu">IntExtention</span>
 <span class="fl">1.</span><span class="fu">plus</span>(<span class="dv">2</span>)  <span class="co">// =&gt; 3</span></code></pre></div></td>
 </tr>
 </tbody>
 </table>
+<p>Intに対して<code>.plus()</code>メソッドを呼ぶコードは、コンパイラによって</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">new</span> <span class="fu">IntExtention</span>(<span class="dv">1</span>).<span class="fu">plus</span>(<span class="dv">2</span>)</code></pre></div>
+<p>という式に変換されてコンパイルされる。インスタンス生成のオーバーヘッドを避けたい場合は値クラスを併用する。<br />
+<a href="http://docs.scala-lang.org/ja/overviews/core/value-classes.html#section-1" class="uri">http://docs.scala-lang.org/ja/overviews/core/value-classes.html#section-1</a></p>
+<h3>モンキーパッチ</h3>
 <p>下記のような既存のメソッドの挙動を修正する「モンキーパッチ」は行うことができない。</p>
 <ul>
 <li>クラスを再オープンしてメソッドを上書きすること</li>
@@ -532,7 +538,6 @@ duck = <span class="dt">Duck</span>.new
 test(duck)  <span class="co"># =&gt; ガーガー</span>
 dakku = <span class="dt">Cat</span>.new
 test(dakku)  <span class="co"># =&gt; にゃーん</span>
-car = <span class="dt">Car</span>.new
 
 <span class="co"># アヒルのように振る舞わない例</span>
 <span class="kw">class</span> <span class="dt">Car</span>
@@ -540,6 +545,7 @@ car = <span class="dt">Car</span>.new
     puts <span class="st">&quot;ブロローン&quot;</span>
   <span class="kw">end</span>
 <span class="kw">end</span>
+car = <span class="dt">Car</span>.new
 test(car)  <span class="co"># ランタイムエラー</span>
 <span class="dt">NoMethodError</span>: undefined method <span class="st">`quack&#39;&#39; for #&lt;Car:0x007fbc4b123c70&gt;</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Duck {
@@ -583,6 +589,10 @@ test(car)  <span class="co"># ランタイムエラー</span>
 
 <span class="kw">val</span> duck: DuckLike = <span class="kw">new</span> <span class="fu">Duck</span>() <span class="kw">with</span> DuckLike
 <span class="fu">test2</span>(duck)  <span class="co">// =&gt; ガーガー</span>
+
+<span class="kw">val</span> dakku: DuckLike = <span class="kw">new</span> <span class="fu">Cat</span>() <span class="kw">with</span> DuckLike
+<span class="fu">test2</span>(dakku)  <span class="co">// =&gt; にゃーん</span>
+
 <span class="kw">val</span> car: DuckLike = <span class="kw">new</span> <span class="fu">Car</span>() <span class="kw">with</span> DuckLike  <span class="co">// =&gt; コンパイルエラー</span>
 &lt;console&gt;:<span class="dv">9</span>: error: <span class="kw">object</span> creation impossible, since method quack in <span class="kw">trait</span> DuckLike of <span class="kw">type</span> =&gt; Unit is not defined</code></pre></div>
 </body>
