@@ -74,7 +74,7 @@ def rows(data):
      :rtype: list of Pandoc json objects
   """
   colsize = len(data[0])
-  if colsize == 4:
+  if colsize == 4 or colsize == 3:
     fun = cell4
   elif colsize == 2:
     fun = cell2
