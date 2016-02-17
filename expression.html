@@ -57,6 +57,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#variables">変数</a></li>
 <li><a href="#functions">メソッド、関数</a></li>
 <li><a href="#operators">演算子</a></li>
+<li><a href="#comments">コメント</a></li>
 <li><a href="#arrayhash">配列、ハッシュ</a></li>
 </ul></li>
 </ul>
@@ -379,6 +380,37 @@ foo <span class="kw">or</span> bar</code></pre></div></td>
 </tr>
 </tbody>
 </table>
+<h2 id="comments">コメント</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">一行コメント</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co"># コメント</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">// コメント</span></code></pre></div></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ブロックコメント</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="co">=begin</span>
+<span class="co">コメント</span>
+<span class="co">コメント</span>
+<span class="co">=end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="co">/*</span>
+<span class="co">コメント</span>
+<span class="co">コメント</span>
+<span class="co">*/</span></code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>Rubyの <code>=begin</code> ... <code>=end</code> は正確には「埋め込みドキュメント」。</p>
+<p>Scalaでは scaladoc というフォーマットにそってコメントを書くことで、ドキュメントの自動生成やIDEでのヒント表示などツールのサポートが得られる。<br />
+<a href="http://docs.scala-lang.org/style/scaladoc.html" class="uri">http://docs.scala-lang.org/style/scaladoc.html</a></p>
 <h2 id="arrayhash">配列、ハッシュ</h2>
 <p>ArrayとHashがあれば大抵間にあうRubyに比べると、Scalaには用途別に様々なコレクションクラスがある。<br />
 データ構造によって挙動や動作効率が違ってくるので、違いをおさえて使い分けるべきとされている。<br />
