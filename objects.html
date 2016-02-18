@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title></title>
   <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
   <style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -44,9 +47,6 @@ code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* Com
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
   </style>
   <link rel="stylesheet" href="css/style.css">
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <nav id="TOC">
@@ -57,6 +57,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#modules">モジュール</a></li>
 <li><a href="#openclass">オープンクラス</a></li>
 <li><a href="#ducktyping">ダックタイピング</a></li>
+<li><a href="#metaprogramming">メタプログラミング</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -595,5 +596,77 @@ test(car)  <span class="co"># ランタイムエラー</span>
 
 <span class="kw">val</span> car: DuckLike = <span class="kw">new</span> <span class="fu">Car</span>() <span class="kw">with</span> DuckLike  <span class="co">// =&gt; コンパイルエラー</span>
 &lt;console&gt;:<span class="dv">9</span>: error: <span class="kw">object</span> creation impossible, since method quack in <span class="kw">trait</span> DuckLike of <span class="kw">type</span> =&gt; Unit is not defined</code></pre></div>
+<h2 id="metaprogramming">メタプログラミング</h2>
+<h3 id="method_missing">method_missing</h3>
+<p>Rubyの method_missing にあたるものとして Dynamic トレイトがある。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ruby</th>
+<th style="text-align: left;">Scala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">class</span> <span class="dt">Foo</span>
+  <span class="kw">def</span> method_missing(method_name, *args)
+    puts method_name
+    args.each { |arg| puts arg }
+  <span class="kw">end</span>
+<span class="kw">end</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">import</span> scala.<span class="fu">language</span>.<span class="fu">dynamics</span>
+<span class="kw">class</span> Foo <span class="kw">extends</span> Dynamic {
+  <span class="co">// foo.bar 形式の呼び出し</span>
+  <span class="kw">def</span> <span class="fu">selectDynamic</span>(name: String): Any = {
+    <span class="fu">println</span>(<span class="st">&quot;selectDynamic&quot;</span>)
+    name.<span class="fu">length</span>
+  }
+
+  <span class="co">// for.bar = hoge 形式の呼び出し</span>
+  <span class="kw">def</span> <span class="fu">updateDynamic</span>(name: String)(value: Any): Unit = {
+    <span class="fu">println</span>(<span class="st">&quot;updateDynamic&quot;</span>)
+    <span class="fu">println</span>(s<span class="st">&quot;name = $name&quot;</span>)
+    <span class="fu">println</span>(s<span class="st">&quot;value = $value&quot;</span>)
+  }
+
+  <span class="co">// foo.bar(hoge) 形式の呼び出し</span>
+  <span class="kw">def</span> <span class="fu">applyDynamic</span>(name: String)(args: Any*): Unit = {
+    <span class="fu">println</span>(<span class="st">&quot;applyDynamic&quot;</span>)
+    <span class="fu">println</span>(s<span class="st">&quot;name = $name&quot;</span>)
+    args.<span class="fu">foreach</span> { <span class="fu">println</span>(_) }
+  }
+
+  <span class="co">// foo.bar(hoge = fuga) 形式の呼び出し（名前付きパラメータ）</span>
+  <span class="kw">def</span> <span class="fu">applyDynamicNamed</span>(name: String)(keyValues: (String, Any)*): Unit = {
+    <span class="fu">println</span>(<span class="st">&quot;applyDynamicNamed&quot;</span>)
+    <span class="fu">println</span>(s<span class="st">&quot;name = $name&quot;</span>)
+    keyValues.<span class="fu">foreach</span> { <span class="kw">case</span> (key, value) =&gt;
+      <span class="fu">println</span>(s<span class="st">&quot;key = $key, value = $value&quot;</span>)
+    }
+  }
+
+  <span class="co">// 普通のメソッドも定義できる</span>
+  <span class="kw">def</span> <span class="fu">bar</span>(i: Int, j: Int): Int = i + j
+}</code></pre></div></td>
+</tr>
+</tbody>
+</table>
+<p>実行時のメソッド呼び出しにフックをかけるmethod_missingと違い、Dynamicトレイトはコンパイル時のコード変換によって実現されている。</p>
+<p>Dynamicトレイトを継承したクラスに対して、未定義のメソッド呼び出しが記述されていると、コンパイラは呼び出しの形式に応じて xxxDynamic() メソッドの呼び出しに変換する。<br />
+（つまりコンパイラはDynamicトレイトを特別扱いしている。）</p>
+<p>selectDynamic() などのメソッド定義では、Scalaの通常のメソッドと同じように引数や返り値の型を明記しなければならない。<br />
+返り値の型を個々の呼び出しで使い分けたいときは、型パラメータを使ったジェネリックなメソッドとして実装する。</p>
+<div class="sourceCode"><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">class</span> Foo <span class="kw">extends</span> Dynamic {
+  <span class="kw">def</span> selectDynamic[A](name: String): A = {
+    <span class="kw">val</span> result = doSomething <span class="co">// 必要な処理を書く</span>
+    result.<span class="fu">asInstanceOf</span>[A]
+  }
+}
+
+<span class="kw">val</span> foo = <span class="kw">new</span> Foo
+foo.<span class="fu">hoge</span>[Int]  <span class="co">// hogeに関する処理がIntを返す場合</span>
+<span class="kw">val</span> i: Int = foo.<span class="fu">hoge</span>  <span class="co">// 変数にIntの型がついているので型パラメータを省略できる</span></code></pre></div>
+<p><code>asInstanceOf</code>によるキャストのほかに、型クラスを使う方法もある。<br />
+<a href="https://stackoverflow.com/questions/15799811/how-does-type-dynamic-work-and-how-to-use-it" class="uri">https://stackoverflow.com/questions/15799811/how-does-type-dynamic-work-and-how-to-use-it</a></p>
 </body>
 </html>
