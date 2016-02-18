@@ -608,8 +608,26 @@ class Foo extends Dynamic {
 }
 ```
 
-Dynamicトレイトを継承したクラスに対して、未定義のメソッド呼び出しが記述されていると、コンパイラが xxxDynamic() メソッドの呼び出しに変換する。
+実行時のメソッド呼び出しにフックをかけるmethod_missingと違い、Dynamicトレイトはコンパイル時のコード変換によって実現されている。
+
+Dynamicトレイトを継承したクラスに対して、未定義のメソッド呼び出しが記述されていると、コンパイラは呼び出しの形式に応じて xxxDynamic() メソッドの呼び出しに変換する。
 （つまりコンパイラはDynamicトレイトを特別扱いしている。）
 
-ScalaのDynamicトレイトでは selectDynamic() などのメソッドで引数や返り値の型を明記しなければならない。
-この制約のため、任意のオブジェクトの身代わりをする汎用プロキシなどの用途には向いていない。
+selectDynamic() などのメソッド定義では、Scalaの通常のメソッドと同じように引数や返り値の型を明記しなければならない。
+返り値の型を個々の呼び出しで使い分けたいときは、型パラメータを使ったジェネリックなメソッドとして実装する。
+
+```scala
+class Foo extends Dynamic {
+  def selectDynamic[A](name: String): A = {
+    val result = doSomething // 必要な処理を書く
+    result.asInstanceOf[A]
+  }
+}
+
+val foo = new Foo
+foo.hoge[Int]  // hogeに関する処理がIntを返す場合
+val i: Int = foo.hoge  // 変数にIntの型がついているので型パラメータを省略できる
+```
+
+`asInstanceOf`によるキャストのほかに、型クラスを使う方法もある。
+https://stackoverflow.com/questions/15799811/how-does-type-dynamic-work-and-how-to-use-it
