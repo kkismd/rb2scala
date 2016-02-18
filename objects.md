@@ -558,54 +558,53 @@ val car: DuckLike = new Car() with DuckLike  // => コンパイルエラー
 
 Rubyの method_missing にあたるものとして Dynamic トレイトがある。
 
-Ruby
+```ymltbl
+-
+  - Ruby
+  - Scala
+-
+  - |
+    class Foo
+      def method_missing(method_name, *args)
+        puts method_name
+        args.each { |arg| puts arg }
+      end
+    end
+  - |
+    import scala.language.dynamics
+    class Foo extends Dynamic {
+      // foo.bar 形式の呼び出し
+      def selectDynamic(name: String): Any = {
+        println("selectDynamic")
+        name.length
+      }
 
-```ruby
-class Foo
-  def method_missing(method_name, *args)
-    puts method_name
-    args.each { |arg| puts arg }
-  end
-end
-```
+      // for.bar = hoge 形式の呼び出し
+      def updateDynamic(name: String)(value: Any): Unit = {
+        println("updateDynamic")
+        println(s"name = $name")
+        println(s"value = $value")
+      }
 
-Scala
+      // foo.bar(hoge) 形式の呼び出し
+      def applyDynamic(name: String)(args: Any*): Unit = {
+        println("applyDynamic")
+        println(s"name = $name")
+        args.foreach { println(_) }
+      }
 
-```scala
-import scala.language.dynamics
-class Foo extends Dynamic {
-  // foo.bar 形式の呼び出し
-  def selectDynamic(name: String): Any = {
-    println("selectDynamic")
-    name.length
-  }
+      // foo.bar(hoge = fuga) 形式の呼び出し（名前付きパラメータ）
+      def applyDynamicNamed(name: String)(keyValues: (String, Any)*): Unit = {
+        println("applyDynamicNamed")
+        println(s"name = $name")
+        keyValues.foreach { case (key, value) =>
+          println(s"key = $key, value = $value")
+        }
+      }
 
-  // for.bar = hoge 形式の呼び出し
-  def updateDynamic(name: String)(value: Any): Unit = {
-    println("updateDynamic")
-    println(s"name = $name")
-    println(s"value = $value")
-  }
-
-  // foo.bar(hoge) 形式の呼び出し
-  def applyDynamic(name: String)(args: Any*): Unit = {
-    println("applyDynamic")
-    println(s"name = $name")
-    args.foreach { println(_) }
-  }
-
-  // foo.bar(hoge = fuga) 形式の呼び出し（名前付きパラメータ）
-  def applyDynamicNamed(name: String)(keyValues: (String, Any)*): Unit = {
-    println("applyDynamicNamed")
-    println(s"name = $name")
-    keyValues.foreach { case (key, value) =>
-      println(s"key = $key, value = $value")
+      // 普通のメソッドも定義できる
+      def bar(i: Int, j: Int): Int = i + j
     }
-  }
-
-  // 普通のメソッドも定義できる
-  def bar(i: Int, j: Int): Int = i + j
-}
 ```
 
 実行時のメソッド呼び出しにフックをかけるmethod_missingと違い、Dynamicトレイトはコンパイル時のコード変換によって実現されている。
