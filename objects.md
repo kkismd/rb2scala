@@ -558,53 +558,54 @@ val car: DuckLike = new Car() with DuckLike  // => コンパイルエラー
 
 Rubyの method_missing にあたるものとして Dynamic トレイトがある。
 
-```ymltbl
--
-  - Ruby
-  - Scala
--
-  - |
-    class Foo
-      def method_missing(method_name, *args)
-        puts method_name
-        args.each { |arg| puts arg }
-      end
-    end
-  - |
-    import scala.language.dynamics
-    class Foo extends Dynamic {
-      // foo.bar 形式の呼び出し
-      def selectDynamic(name: String): Any = {
-        println("selectDynamic")
-        name.length
-      }
+Ruby
 
-      // for.bar = hoge 形式の呼び出し
-      def updateDynamic(name: String)(value: Any): Unit = {
-        println("updateDynamic")
-        println(s"name = $name")
-        println(s"value = $value")
-      }
+```ruby
+class Foo
+  def method_missing(method_name, *args)
+    puts method_name
+    args.each { |arg| puts arg }
+  end
+end
+```
 
-      // foo.bar(hoge) 形式の呼び出し
-      def applyDynamic(name: String)(args: Any*): Unit = {
-        println("applyDynamic")
-        println(s"name = $name")
-        args.foreach { println(_) }
-      }
+Scala
 
-      // foo.bar(hoge = fuga) 形式の呼び出し（名前付きパラメータ）
-      def applyDynamicNamed(name: String)(keyValues: (String, Any)*): Unit = {
-        println("applyDynamicNamed")
-        println(s"name = $name")
-        keyValues.foreach { case (key, value) =>
-          println(s"key = $key, value = $value")
-        }
-      }
+```scala
+import scala.language.dynamics
+class Foo extends Dynamic {
+  // foo.bar 形式の呼び出し
+  def selectDynamic(name: String): Any = {
+    println("selectDynamic")
+    name.length
+  }
 
-      // 普通のメソッドも定義できる
-      def bar(i: Int, j: Int): Int = i + j
+  // for.bar = hoge 形式の呼び出し
+  def updateDynamic(name: String)(value: Any): Unit = {
+    println("updateDynamic")
+    println(s"name = $name")
+    println(s"value = $value")
+  }
+
+  // foo.bar(hoge) 形式の呼び出し
+  def applyDynamic(name: String)(args: Any*): Unit = {
+    println("applyDynamic")
+    println(s"name = $name")
+    args.foreach { println(_) }
+  }
+
+  // foo.bar(hoge = fuga) 形式の呼び出し（名前付きパラメータ）
+  def applyDynamicNamed(name: String)(keyValues: (String, Any)*): Unit = {
+    println("applyDynamicNamed")
+    println(s"name = $name")
+    keyValues.foreach { case (key, value) =>
+      println(s"key = $key, value = $value")
     }
+  }
+
+  // 普通のメソッドも定義できる
+  def bar(i: Int, j: Int): Int = i + j
+}
 ```
 
 Dynamicトレイトを継承したクラスに対して、未定義のメソッド呼び出しが記述されていると、コンパイラが xxxDynamic() メソッドの呼び出しに変換する。
