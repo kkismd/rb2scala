@@ -4,6 +4,9 @@
 命名規則 {#naming}
 ----
 
+詳しくは公式のスタイルガイドを参照のこと。
+http://docs.scala-lang.org/style/naming-conventions.html
+
 ```ymltbl
 -
   - 種類
@@ -16,7 +19,7 @@
   - camelCase
   - ''
 -
-  - クラス名
+  - クラス名、モジュール／トレイト名
   - CamelCase
   - CamelCase
   - ''
