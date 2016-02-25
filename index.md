@@ -31,6 +31,11 @@ RubyistのためのScala早見表
     * 命名規則
     * いろいろなクラスのいろいろなメソッド
 
+更新履歴
+----
+
+更新履歴はこちらをごらん下さい。
+https://github.com/kkismd/rb2scala/commits/master
 
 ライセンス
 ----
