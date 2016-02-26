@@ -346,10 +346,11 @@ Array(foo, bar, baz) = Array(<span class="dv">1</span>, <span class="dv">2</span
 </tr>
 <tr class="even">
 <td style="text-align: left;">範囲式</td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="dv">1</span> .. <span class="dv">20</span></code></pre></div></td>
-<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="dv">1</span> to <span class="dv">20</span>
-<span class="fl">1.</span><span class="fu">to</span>(<span class="dv">20</span>)</code></pre></div></td>
-<td style="text-align: left;">整数クラスの .to() メソッドを使う。引数が１つしかないメソッドはドットやカッコを省略できる。</td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="dv">1</span> .. <span class="dv">20</span>   <span class="co"># 1 ~ 20</span>
+<span class="dv">1</span> ... <span class="dv">20</span>  <span class="co"># 1 ~ 19</span></code></pre></div></td>
+<td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="dv">1</span> to <span class="dv">20</span>    <span class="co">// 1 ~ 20</span>
+<span class="dv">1</span> until <span class="dv">20</span> <span class="co">// 1 ~ 19</span></code></pre></div></td>
+<td style="text-align: left;">整数クラスの .to() や .until() メソッドを使う。引数が１つしかないメソッドはドットやカッコを省略できる。</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">アンド条件</td>

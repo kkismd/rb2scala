@@ -73,25 +73,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">if-else</td>
+<td style="text-align: left;">if</td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode ruby"><code class="sourceCode ruby"><span class="kw">if</span> a == b
-  <span class="st">&quot;equal!&quot;</span>
-<span class="kw">else</span>
-  <span class="st">&quot;not equal!&quot;</span>
+  <span class="st">&quot;ok&quot;</span>
 <span class="kw">end</span>
 
 <span class="kw">if</span> a == b
-  <span class="st">&quot;ok&quot;</span>
+  <span class="st">&quot;equal!&quot;</span>
+<span class="kw">elsif</span> a &gt; b
+  <span class="st">&quot;greater than!&quot;</span>
+<span class="kw">else</span>
+  <span class="st">&quot;not equal!&quot;</span>
 <span class="kw">end</span></code></pre></div></td>
 <td style="text-align: left;"><div class="sourceCode" =""><pre class="sourceCode scala"><code class="sourceCode scala"><span class="kw">if</span> (a == b) {
-  <span class="st">&quot;equal!&quot;</span>
-}
-<span class="kw">else</span> {
-  <span class="st">&quot;not equal!&quot;</span>
+  <span class="st">&quot;ok&quot;</span>
 }
 
 <span class="kw">if</span> (a == b) {
-  <span class="st">&quot;ok&quot;</span>
+  <span class="st">&quot;equal!&quot;</span>
+}
+<span class="kw">else</span> <span class="kw">if</span> (a &gt; b) {
+  <span class="st">&quot;greater than!&quot;</span>
+}
+<span class="kw">else</span> {
+  <span class="st">&quot;not equal!&quot;</span>
 }</code></pre></div></td>
 <td style="text-align: left;">Scalaでもifは式であり、値を返すことができる。後置式はない。</td>
 </tr>
