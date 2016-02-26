@@ -11,27 +11,33 @@
   - Scala
   - 備考
 -
-  - if-else
+  - if
   - |
     if a == b
+      "ok"
+    end
+
+    if a == b
       "equal!"
+    elsif a > b
+      "greater than!"
     else
       "not equal!"
     end
 
-    if a == b
-      "ok"
-    end
   - |
     if (a == b) {
-      "equal!"
-    }
-    else {
-      "not equal!"
+      "ok"
     }
 
     if (a == b) {
-      "ok"
+      "equal!"
+    }
+    else if (a > b) {
+      "greater than!"
+    }
+    else {
+      "not equal!"
     }
   - Scalaでもifは式であり、値を返すことができる。後置式はない。
 -
